@@ -3,6 +3,7 @@ import GameScene from '../Game/GameScene';
 
 let game;
 
+
 const GamePage = () => {
   const phaserGame = `
 <div id="gameDiv" class="d-flex justify-content-center my-3">

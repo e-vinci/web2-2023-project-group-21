@@ -5,7 +5,25 @@ const Router = () => {
   onFrontendLoad();
   onNavBarClick();
   onHistoryChange();
+  onHomePageClick();
 };
+
+function onHomePageClick() {
+const GameButton = document.querySelector('#GameButton');
+
+  GameButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const GameButtonClicked = e.target;
+    const uri = GameButtonClicked?.dataset?.uri;
+    if (uri) {
+      const componentToRender = routes[uri];
+      if (!componentToRender) throw Error(`The ${uri} ressource does not exist.`);
+
+      componentToRender();
+      window.history.pushState({}, '', usePathPrefix(uri));
+    }
+  });
+}
 
 function onNavBarClick() {
   const navbarWrapper = document.querySelector('#navbarWrapper');

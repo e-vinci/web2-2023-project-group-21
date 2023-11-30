@@ -1,11 +1,15 @@
 import GamePage from '../Pages/GamePage';
 import HomePage from '../Pages/HomePage';
-import NewPage from '../Pages/NewPage';
+import EvoRumblePage from '../Pages/EvoRumblePage';
+import ProfilPage from '../Pages/Profil';
+import RulePage from '../Pages/RulesPage';
 
 const routes = {
   '/': HomePage,
   '/game': GamePage,
-  '/new': NewPage,
+  '/evoRumble': EvoRumblePage,
+  '/profil': ProfilPage,
+  '/rule': RulePage,
 };
 
 export default routes;
