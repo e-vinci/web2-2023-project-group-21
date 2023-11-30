@@ -1,12 +1,12 @@
 const express = require('express');
-const { getAllMonsters, getMonstersByType } = require('../models/evoRumble');
+const { getAllMonsters, getMonstersByType, getAllAttacks } = require('../models/evoRumble');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
   const allMonsters = getAllMonsters();
-
-  return res.json(allMonsters);
+  const allAttacks = getAllAttacks();
+  return res.json({ allMonsters, allAttacks });
 });
 
 router.get('/:type', (req, res) => {

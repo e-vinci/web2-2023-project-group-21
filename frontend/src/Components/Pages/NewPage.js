@@ -51,7 +51,8 @@ async function creationParties() {
     const response = await fetch('/api/evoRumble');
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
-    const monstres = await response.json();
+    const monsterAndAttack = await response.json();
+    const monstres = monsterAndAttack.allMonsters;
     const nbMonstresParEquipe = 4;
 
     // création des équipes avec des monstres au hasard
