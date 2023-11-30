@@ -1,7 +1,20 @@
-
 import Navigate from '../Router/Navigate';
 
-const HomePage = () => {
+async function getLeaderboard() {
+  try {
+    const response = await fetch('/api/leaderboard');
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const data = await response.json();
+    return data;
+
+  } catch (err) {
+    console.error('getLeaderboard::error: ', err);
+    throw err;
+  }
+}
+
+const HomePage = async () => {
   const main = document.querySelector('main');
   main.innerHTML = `
   <div class="container mt-5 pt-5">
@@ -12,17 +25,7 @@ const HomePage = () => {
             <p>TOP 10</p>
           </div>
           <div class="border p-5 pt-2 pb-0">
-            <ol>
-              <li>Joueur 1- Score </li>
-              <li>Joueur 2- Score </li>
-              <li>Joueur 3- Score </li>
-              <li>Joueur 4- Score </li>
-              <li>Joueur 5- Score </li>
-              <li>Joueur 6- Score </li>
-              <li>Joueur 7- Score </li>
-              <li>Joueur 8- Score</li>
-              <li>Joueur 9- Score </li>
-              <li>Joueur 10- Score </li>
+            <ol id="leaderboard">
             </ol>
           </div>
         </div>
@@ -30,18 +33,30 @@ const HomePage = () => {
       <div class="col-md-4 align-self-center text-center">
         <div>
           <h1>EvoRumble</h1>
-          <button  id="GameButton"></button>
+          <button id="GameButton"></button>
         </div>
       </div>
     </div>
   </div>`;
 
-  const submit = document.querySelector('#GameButton');
-  submit.innerHTML = 'JOUER';
-  submit.className = 'btn btn-primary btn-lg rounded-pill';
-  submit.addEventListener('click', () => {
+  try {
+    const leaderboard = await getLeaderboard();
+    const leaderboardHTML = document.querySelector('#leaderboard');
+    leaderboardHTML.innerHTML = ''; // Clear existing content
+    leaderboard.forEach((player) => {
+      leaderboardHTML.innerHTML += `<li>${player.pseudo} - ${player.score}</li>`;
+    });
+
+    const submit = document.querySelector('#GameButton');
+    submit.innerHTML = 'JOUER';
+    submit.className = 'btn btn-primary btn-lg rounded-pill';
+    submit.addEventListener('click', () => {
       Navigate('/evoRumble');
-  });
+    });
+  } catch (error) {
+    console.error('HomePage::error: ', error);
+    // Handle error as needed
+  }
 };
 
 export default HomePage;
