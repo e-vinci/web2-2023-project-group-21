@@ -27,6 +27,7 @@ const gameState = {
   listeMonstresEquipe2: [],
   monstreActifEquipe1: null,
   monstreActifEquipe2: null,
+  attacksAndDamages: [],
 };
 const NewPage = () => {
   clearPage();
@@ -53,6 +54,7 @@ async function creationParties() {
 
     const monsterAndAttack = await response.json();
     const monstres = monsterAndAttack.allMonsters;
+    const attacks = monsterAndAttack.allAttacks;
     const nbMonstresParEquipe = 4;
 
     // création des équipes avec des monstres au hasard
@@ -67,7 +69,11 @@ async function creationParties() {
 
     [gameState.monstreActifEquipe1] = gameState.listeMonstresEquipe1;
     [gameState.monstreActifEquipe2] = gameState.listeMonstresEquipe2;
+
+    gameState.attacksAndDamages = attacks;
+
     renderGameState();
+    
   } catch (err) {
     console.error('showAllMonsters::error: ', err);
     throw err;
@@ -78,6 +84,13 @@ async function creationParties() {
 const historique = document.createElement('div');
 historique.id = 'hist';
 historique.innerHTML = '<div class="text-decoration-underline">Historique des attaques éffectuées:</div>';
+
+
+// function to find the damage associated with the attack
+function getDamage(attackName) {
+  const attackDamage = gameState.attacksAndDamages.find((attackAndDamage) => attackAndDamage.name === attackName);
+  return attackDamage.damage;
+}
 
 // question: pq quand j'appuie sur lien new page mes equipes ne se vide pas avant
 function renderGameState() {
@@ -99,7 +112,7 @@ function renderGameState() {
     renderGoBackHomeButton();
   } else {
     document.querySelector('.gameWindow').innerHTML += 'EQUIPE 1<br>';
-    
+
     // affichage du monstre actif des 2 équipes
     document.querySelector('.gameWindow').innerHTML += `Nom monstre actif equipe 1: ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} PV: ${JSON.stringify(gameState.monstreActifEquipe1.pointsDeVie)}<br>`;
     document.querySelector('.gameWindow').innerHTML += `Nom monstre actif equipe 2: ${JSON.stringify(gameState.monstreActifEquipe2.nom,)} PV: ${JSON.stringify(gameState.monstreActifEquipe2.pointsDeVie)}<br>`;
@@ -121,11 +134,12 @@ function renderGameState() {
 
     // création des outons pour qu'un joueur puisse attaquer en fonction de son pokémon
     for (let i = 0; i < 4; i += 1) {
+      const attackName = gameState.monstreActifEquipe1.attaques[i]
       const atk = document.createElement('button');
       atk.className = 'btn btn-dark m-1'
-      atk.innerHTML = `${gameState.monstreActifEquipe1.attaques[i]}`;
+      atk.innerHTML = `${attackName} <br> ${getDamage(attackName)} damage`;
       atk.addEventListener('click', (e) => {
-        const nbDegats = i * 10 + 5;
+        const nbDegats = getDamage(attackName);
         historique.innerHTML += `Le joueur 1 a joué ${e.target.innerHTML} pour une valeur de ${nbDegats} pv<br>`;
         gameState.monstreActifEquipe2.pointsDeVie -= nbDegats;
         if (gameState.monstreActifEquipe2.pointsDeVie <= 0) {
@@ -138,7 +152,7 @@ function renderGameState() {
           const randomAtkIndex = Math.floor(Math.random() * nbAttaques);
           historique.innerHTML += `Le joueur 2 a joué ${gameState.monstreActifEquipe2.attaques[randomAtkIndex]} pour une valeur de ${randomAtkIndex * 10 + 5} pv<br>`;
           gameState.monstreActifEquipe1.pointsDeVie -= nbDegats;
-          if (gameState.monstreActifEquipe1.pointsDeVie <= 0){
+          if (gameState.monstreActifEquipe1.pointsDeVie <= 0) {
             historique.innerHTML += `EQUIPE 1: Le monstre ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} est mort<br>`;
             const index = gameState.listeMonstresEquipe1.indexOf(gameState.monstreActifEquipe1);
             gameState.listeMonstresEquipe1.splice(index, 1);
@@ -152,8 +166,8 @@ function renderGameState() {
     }
 
     // crétaion des boutons pour permettre de changer parmis les monstres restants
-    for (let i = 0; i < gameState.listeMonstresEquipe1.length; i+=1) {
-      if (gameState.listeMonstresEquipe1[i] !== gameState.monstreActifEquipe1){
+    for (let i = 0; i < gameState.listeMonstresEquipe1.length; i += 1) {
+      if (gameState.listeMonstresEquipe1[i] !== gameState.monstreActifEquipe1) {
         const monstre = document.createElement('button');
         monstre.className = 'btn btn-info m-1'
         monstre.innerHTML = `${gameState.listeMonstresEquipe1[i].nom}`;
