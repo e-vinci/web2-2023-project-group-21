@@ -47,16 +47,17 @@ const HomePage = async () => {
       leaderboardHTML.innerHTML += `<li>${player.pseudo} - ${player.score}</li>`;
     });
 
-    const submit = document.querySelector('#GameButton');
-    submit.innerHTML = 'JOUER';
-    submit.className = 'btn btn-primary btn-lg rounded-pill';
-    submit.addEventListener('click', () => {
-      Navigate('/evoRumble');
-    });
   } catch (error) {
     console.error('HomePage::error: ', error);
     // Handle error as needed
   }
+  
+  const submit = document.querySelector('#GameButton');
+  submit.innerHTML = 'JOUER';
+  submit.className = 'btn btn-primary btn-lg rounded-pill';
+  submit.addEventListener('click', () => {
+    Navigate('/gameMode');
+  });
 };
 
 export default HomePage;

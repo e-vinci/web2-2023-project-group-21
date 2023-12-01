@@ -54,8 +54,9 @@ async function creationParties() {
 
     const monsterAndAttack = await response.json();
     const monstres = monsterAndAttack.allMonsters;
-    const attacks = monsterAndAttack.allAttacks;
     const nbMonstresParEquipe = 4;
+    gameState.attacksAndDamages = monsterAndAttack.allAttacks;
+
 
     // création des équipes avec des monstres au hasard
     for (let i = 0; i < nbMonstresParEquipe; i += 1) {
@@ -70,7 +71,6 @@ async function creationParties() {
     [gameState.monstreActifEquipe1] = gameState.listeMonstresEquipe1;
     [gameState.monstreActifEquipe2] = gameState.listeMonstresEquipe2;
 
-    gameState.attacksAndDamages = attacks;
 
     renderGameState();
     
@@ -87,13 +87,13 @@ historique.innerHTML = '<div class="text-decoration-underline">Historique des at
 
 
 // function to find the damage associated with the attack
-function getDamage(attackName) {
+   function getDamage(attackName) {
   const attackDamage = gameState.attacksAndDamages.find((attackAndDamage) => attackAndDamage.name === attackName);
   return attackDamage.damage;
 }
 
 // question: pq quand j'appuie sur lien new page mes equipes ne se vide pas avant
-function renderGameState() {
+ function renderGameState() {
   const main = document.querySelector('main');
   // division de la fenêtre en 4
   main.innerHTML = `<div class="container">
@@ -137,7 +137,7 @@ function renderGameState() {
       const attackName = gameState.monstreActifEquipe1.attaques[i]
       const atk = document.createElement('button');
       atk.className = 'btn btn-dark m-1'
-      atk.innerHTML = `${attackName} <br> ${getDamage(attackName)} damage`;
+      atk.innerHTML = `${attackName} <br> ${(getDamage(attackName))} damage`;
       atk.addEventListener('click', (e) => {
         const nbDegats = getDamage(attackName);
         historique.innerHTML += `Le joueur 1 a joué ${e.target.innerHTML} pour une valeur de ${nbDegats} pv<br>`;
