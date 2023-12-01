@@ -41,7 +41,13 @@ const Navbar = () => {
               </li>       
               <li class="nav-item">
                 <a class="nav-link" href="#" data-uri="/profil">Profil</a>
-              </li>             
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-uri="/login">Se Connecter</a>
+              </li> 
+              <li class="nav-item">
+                <a class="nav-link" href="#" data-uri="/register">S'Enregistrer</a>
+              </li>              
             </ul>
           </div>
         </div>
