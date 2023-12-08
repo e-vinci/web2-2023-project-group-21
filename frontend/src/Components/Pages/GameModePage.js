@@ -10,14 +10,12 @@ const GameModePage = () => {
 };
 
 function renderGameModePage(){
-    const body = document.querySelector("body");
-    body.classList.add('bg-dark');
 
     const main = document.querySelector("main");
     main.innerHTML = `
         <h1 class="text-center text-light " >Choisis ton mode de jeu</h1>
         <div class="computer_mode">
-            <a id="soloButton" href="#" class="the_link">
+            <a id="soloButton" class="the_link">
                 <span class="span1"></span>
                 <span class="span2"></span>
                 <span class="span3"></span>

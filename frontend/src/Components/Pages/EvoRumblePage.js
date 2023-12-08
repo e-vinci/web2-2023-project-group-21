@@ -48,6 +48,11 @@ function renderGoBackHomeButton() {
 }
 
 async function creationParties() {
+  gameState.listeMonstresEquipe1 = [];
+  gameState.listeMonstresEquipe2 = [];
+  gameState.monstreActifEquipe1 = null;
+  gameState.monstreActifEquipe2 = null;
+  gameState.attacksAndDamages = [];
   try {
     const response = await fetch('/api/evoRumble');
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -96,10 +101,10 @@ historique.innerHTML = '<div class="text-decoration-underline">Historique des at
  function renderGameState() {
   const main = document.querySelector('main');
   // division de la fenêtre en 4
-  main.innerHTML = `<div class="container">
+  main.innerHTML = `<div class="container bg-white text-center">
   <div class="row">
     <div class="col gameWindow m-1 border"></div>
-    <div class="col  history m-1 border"></div>
+    <div class="col  history m-1 border overflow-auto"></div>
     <div class="w-100"></div>
     <div class="col atkButtons m-1 border"></div>
     <div class="col quitButton m-1 border"></div>
@@ -133,6 +138,7 @@ historique.innerHTML = '<div class="text-decoration-underline">Historique des at
     document.querySelector('.history').appendChild(historique);
 
     // création des outons pour qu'un joueur puisse attaquer en fonction de son pokémon
+    const divAttack = document.createElement('div')
     for (let i = 0; i < 4; i += 1) {
       const attackName = gameState.monstreActifEquipe1.attaques[i]
       const atk = document.createElement('button');
@@ -162,7 +168,8 @@ historique.innerHTML = '<div class="text-decoration-underline">Historique des at
         clearPage();
         renderGameState();
       });
-      document.querySelector('.atkButtons').appendChild(atk);
+      divAttack.appendChild(atk);
+      document.querySelector('.atkButtons').appendChild(divAttack);
     }
 
     // crétaion des boutons pour permettre de changer parmis les monstres restants
@@ -181,6 +188,13 @@ historique.innerHTML = '<div class="text-decoration-underline">Historique des at
     }
     // faire en sorte que si on change de monstre c'est à l'ordi de jouer
     // faire des fonctions pour que l'ordi joue soit un changement soit une attaque si possible
+    const rageQuit = document.createElement('button');
+    rageQuit.innerHTML = `Déclarer forfait`;
+    rageQuit.className = `bg-danger btn btn-info m-1 mt-5`;
+    rageQuit.addEventListener('click', ()  => {
+      Navigate('/');
+    });
+    document.querySelector('.quitButton').appendChild(rageQuit);
   }
 }
 
