@@ -47,6 +47,9 @@ function renderGoBackHomeButton() {
   main.appendChild(submit);
 }
 
+// historique des attaques lancées et des monstres morts
+const historique = document.createElement('div');
+
 async function creationParties() {
   gameState.listeMonstresEquipe1 = [];
   gameState.listeMonstresEquipe2 = [];
@@ -75,8 +78,10 @@ async function creationParties() {
 
     [gameState.monstreActifEquipe1] = gameState.listeMonstresEquipe1;
     [gameState.monstreActifEquipe2] = gameState.listeMonstresEquipe2;
-
-
+    
+    // historique remis à zero
+    historique.id = 'hist';
+    historique.innerHTML = '<div class="text-decoration-underline">Historique des attaques éffectuées:</div>';
     renderGameState();
     
   } catch (err) {
@@ -85,10 +90,7 @@ async function creationParties() {
   }
 }
 
-// historique des attaques lancées et des monstres morts
-const historique = document.createElement('div');
-historique.id = 'hist';
-historique.innerHTML = '<div class="text-decoration-underline">Historique des attaques éffectuées:</div>';
+
 
 
 // function to find the damage associated with the attack
@@ -101,10 +103,10 @@ historique.innerHTML = '<div class="text-decoration-underline">Historique des at
  function renderGameState() {
   const main = document.querySelector('main');
   // division de la fenêtre en 4
-  main.innerHTML = `<div class="container bg-white text-center">
+  main.innerHTML = `<div class="container bg-white text-center mt-5">
   <div class="row">
     <div class="col gameWindow m-1 border"></div>
-    <div class="col  history m-1 border overflow-auto"></div>
+    <div class="col  history m-1 border"></div>
     <div class="w-100"></div>
     <div class="col atkButtons m-1 border"></div>
     <div class="col quitButton m-1 border"></div>

@@ -147,4 +147,13 @@
     white-space: nowrap; /* Pour éviter le chevauchement du texte */
 }
 
+.history{
+    max-height: 600px;
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column-reverse;
+}
+.gameWindow{
+    height: 600px;
+}
   
