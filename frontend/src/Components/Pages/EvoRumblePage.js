@@ -96,7 +96,7 @@ async function creationParties() {
 // function to find the damage associated with the attack
    function getDamage(attackName) {
   const attackDamage = gameState.attacksAndDamages.find((attackAndDamage) => attackAndDamage.name === attackName);
-  return attackDamage.damage;
+  return attackDamage;
 }
 
 // question: pq quand j'appuie sur lien new page mes equipes ne se vide pas avant
@@ -144,24 +144,22 @@ async function creationParties() {
     for (let i = 0; i < 4; i += 1) {
       const attackName = gameState.monstreActifEquipe1.attaques[i]
       const atk = document.createElement('button');
-      atk.className = 'btn btn-dark m-1'
-      atk.innerHTML = `${attackName} <br> ${(getDamage(attackName))} damage`;
+      atk.className = 'btn btn-dark m-1';
+      atk.innerHTML = `<div id="nom">${attackName} </div><div> ${(getDamage(attackName)).damage} damage </div><div> (${(getDamage(attackName)).type})</div>`;
       atk.addEventListener('click', (e) => {
-        const nbDegats = getDamage(attackName);
-        historique.innerHTML += `Le joueur 1 a joué ${e.target.innerHTML} pour une valeur de ${nbDegats} pv<br>`;
+        const nbDegats = getDamage(attackName).damage;
+        console.log(e.target.innerHTML);
+        historique.innerHTML += `Le joueur 1 a joué ${e.target} pour une valeur de ${nbDegats} pv<br>`;
         gameState.monstreActifEquipe2.pointsDeVie -= nbDegats;
         if (gameState.monstreActifEquipe2.pointsDeVie <= 0) {
-          historique.innerHTML += `EQUIPE 2: Le monstre ${JSON.stringify(gameState.monstreActifEquipe2.nom,)} est mort<br>`;
+          historique.innerHTML += `<div class="text-danger">EQUIPE 2: Le monstre ${JSON.stringify(gameState.monstreActifEquipe2.nom,)} est mort</div>`;
           const index = gameState.listeMonstresEquipe2.indexOf(gameState.monstreActifEquipe2);
           gameState.listeMonstresEquipe2.splice(index, 1);
           [gameState.monstreActifEquipe2] = gameState.listeMonstresEquipe2;
         } else {
-          const nbAttaques = 4;
-          const randomAtkIndex = Math.floor(Math.random() * nbAttaques);
-          historique.innerHTML += `Le joueur 2 a joué ${gameState.monstreActifEquipe2.attaques[randomAtkIndex]} pour une valeur de ${randomAtkIndex * 10 + 5} pv<br>`;
-          gameState.monstreActifEquipe1.pointsDeVie -= nbDegats;
+          playOrdi();
           if (gameState.monstreActifEquipe1.pointsDeVie <= 0) {
-            historique.innerHTML += `EQUIPE 1: Le monstre ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} est mort<br>`;
+            historique.innerHTML += `<div class="text-danger">EQUIPE 1: Le monstre ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} est mort</div>`;
             const index = gameState.listeMonstresEquipe1.indexOf(gameState.monstreActifEquipe1);
             gameState.listeMonstresEquipe1.splice(index, 1);
             [gameState.monstreActifEquipe1] = gameState.listeMonstresEquipe1;
@@ -182,6 +180,8 @@ async function creationParties() {
         monstre.innerHTML = `${gameState.listeMonstresEquipe1[i].nom}`;
         monstre.addEventListener('click', () => {
           gameState.monstreActifEquipe1 = gameState.listeMonstresEquipe1[i];
+          historique.innerHTML += `<div class="text-success">EQUIPE 1: Le monstre ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} est entré</div>`;
+          playOrdi();
           clearPage();
           renderGameState();
         })
@@ -197,6 +197,15 @@ async function creationParties() {
       Navigate('/');
     });
     document.querySelector('.quitButton').appendChild(rageQuit);
+  }
+
+  function playOrdi() {
+      const nbAttaques = 4;
+          const randomAtkIndex = Math.floor(Math.random() * nbAttaques);
+          const atkOrdi = gameState.monstreActifEquipe2.attaques[randomAtkIndex];
+          const nbDegatsOrdi = getDamage(atkOrdi).damage;
+          historique.innerHTML += `Le joueur 2 a joué ${atkOrdi} pour une valeur de ${nbDegatsOrdi} pv<br>`;
+          gameState.monstreActifEquipe1.pointsDeVie -= nbDegatsOrdi;
   }
 }
 

@@ -19,9 +19,9 @@ const HomePage = async () => {
   main.innerHTML = `
   <div class="container mt-5 pt-5">
     <div class="row content">
-      <div class="col-md-4 text-center">
+      <div class="col-md-4">
         <div class="d-inline-block">
-          <div class="border p-5 pt-2 pb-0">
+          <div class="border p-5 pt-2 pb-0 text-center">
             <p>TOP 10</p>
           </div>
           <div class="border p-5 pt-2 pb-0">

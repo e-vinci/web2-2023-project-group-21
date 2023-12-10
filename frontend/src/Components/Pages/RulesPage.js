@@ -13,13 +13,16 @@ const RulePage = () => {
                       </div>`;    
     const description = document.createElement('p');
     description.innerHTML = `"evoRumble" offre une expérience de duel élémentaire unique, où huit monstres élémentaires se disputent la gloire dans des affrontements en un contre un. Dans ce jeu de stratégie intense, chaque joueur compose une équipe de quatre monstres, mais seul un monstre peut être envoyé dans l'arène à la fois.`
+    
     const features = document.createElement('div');
     const featuresH1 = document.createElement('h2');
     featuresH1.innerHTML = `Caractéristiques du Jeu : <br><br>`;
+    
     const tacticalSelectionH2 = document.createElement('h3');
     tacticalSelectionH2.innerHTML=`Sélection Tactique :<br>`
     const tacticalSelectionText = document.createElement('p');
     tacticalSelectionText.innerHTML = `Les joueurs choisissent soigneusement leur monstre pour chaque round, en tenant compte des forces et des faiblesses élémentaires. La clé de la victoire réside dans la stratégie de sélection, car chaque monstre a son propre style de combat.<br>`
+    
     const elementaryStrategyH2 = document.createElement('h3');
     elementaryStrategyH2.innerHTML =`Stratégie Élémentaire :<br>`
     const elementaryStrategyText = document.createElement('p');
@@ -31,6 +34,7 @@ const RulePage = () => {
     elementaryStrategyTable.innerHTML =`
         <tr>
             <th class="pt-4">en attaque / en défence</th>
+            <th class="p-0 rotate-90">Normal</th>
             <th class="p-0 rotate-90">Feu</th>
             <th class="p-0 rotate-90">Eau</th>
             <th class="p-0 rotate-90">Plante</th>
@@ -39,7 +43,18 @@ const RulePage = () => {
             <th class="p-0 rotate-90">Eletrique</th>
         </tr>
         <tr>
+            <th class="p-0">Normal</th>
+            <td class=" p-0">1</td>
+            <td class=" p-0">1</td>
+            <td class=" p-0">1</td>
+            <td class=" p-0">1</td>
+            <td class=" p-0">1</td>
+            <td class="p-0">1</td>
+            <td class="p-0">1</td>
+        </tr>
+        <tr>
             <th class="p-0">Feu</th>
+            <td class=" p-0">1</td>
             <td class="bg-danger p-0">1/2</td>
             <td class="bg-danger p-0">1/2</td>
             <td class="bg-success p-0">2</td>
@@ -49,6 +64,7 @@ const RulePage = () => {
         </tr>
         <tr>
             <th class="p-0">Eau</th>
+            <td class=" p-0">1</td>
             <td class="bg-success p-0">2</td>
             <td class="bg-danger p-0">1/2</td>
             <td class="bg-danger p-0">1/2</td>
@@ -58,6 +74,7 @@ const RulePage = () => {
         </tr>
         <tr>
             <th class="p-0">Plante</th>
+            <td class=" p-0">1</td>
             <td class="bg-danger p-0">1/2</td>
             <td class="bg-success p-0">2</td>
             <td class="bg-danger p-0">1/2</td>
@@ -67,6 +84,7 @@ const RulePage = () => {
         </tr>
         <tr>
             <th class="p-0">Terre</th>
+            <td class=" p-0">1</td>
             <td class="bg-success p-0">2</td>
             <td class="p-0">1</td>
             <td class="bg-danger p-0">1/2</td>
@@ -76,6 +94,7 @@ const RulePage = () => {
         </tr>
         <tr>
             <th class="p-0">Vol</th>
+            <td class=" p-0">1</td>
             <td class="p-0">1</td>
             <td class="p-0">1</td>
             <td class="bg-success p-0">2</td>
@@ -85,6 +104,7 @@ const RulePage = () => {
         </tr>
         <tr>
             <th class="p-0">Electrique</th>
+            <td class=" p-0">1</td>
             <td class="p-0">1</td>
             <td class="bg-success p-0">2</td>
             <td class="bg-danger p-0">1/2</td>
