@@ -37,14 +37,23 @@ const NewPage = () => {
 
 function renderGoBackHomeButton() {
   const main = document.querySelector('main');
+  main.className='text-center mt-5 pt-5'
   const submit = document.createElement('input');
   submit.value = 'Retour au menu principal';
-  submit.className = 'btn btn-secondary mt-3';
+  submit.className = 'btn btn-primary mt-3 mx-2';
   submit.addEventListener('click', () => {
     Navigate('/');
   });
+  const rematch = document.createElement('input');
+  rematch.value = 'Rematch';
+  rematch.className = 'btn btn-success mt-3 mx-2';
+  rematch.addEventListener('click', () => {
+    NewPage();
+  });
+
 
   main.appendChild(submit);
+  main.appendChild(rematch);
 }
 
 // historique des attaques lancées et des monstres morts
