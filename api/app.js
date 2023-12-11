@@ -11,7 +11,7 @@ const usersRouter = require('./routes/users');
 const pizzaRouter = require('./routes/pizzas');
 const authsRouter = require('./routes/auths');
 const evoRumbleRouter = require('./routes/evoRumble');
-const leaderboardRouter = require('./routes/leaderboard')
+const leaderboardRouter = require('./routes/leaderboard');
 
 const app = express();
 
