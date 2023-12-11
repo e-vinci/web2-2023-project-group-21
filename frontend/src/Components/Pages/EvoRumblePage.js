@@ -42,6 +42,7 @@ function renderGoBackHomeButton() {
   submit.value = 'Retour au menu principal';
   submit.className = 'btn btn-primary mt-3 mx-2';
   submit.addEventListener('click', () => {
+    clearPage();
     Navigate('/');
   });
   const rematch = document.createElement('input');

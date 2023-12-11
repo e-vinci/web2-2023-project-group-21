@@ -1,101 +1,73 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const path = require('node:path');
-const { parse, serialize } = require('../utils/json');
+const mongoose = require('mongoose');
 
-const jwtSecret = 'ilovemypizza!';
-const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
+// Define schemùa
+const usernameSchema = new mongoose.Schema({
+  link_avatar: { type: String, required: false },
+  pseudo: { type: String, unique: true, required: true },
+  mdp: { type: String, required: true },
+});
 
-const saltRounds = 10;
+// Create model
+const User = mongoose.model('User', usernameSchema);
 
-const jsonDbPath = path.join(__dirname, '/../data/users.json');
+async function addUser(username, password) {
+  try {
+    // Connection to the database
+    await mongoose.connect('mongodb+srv://ProjetEvo:Vinci2023@projetweb.u3w9kax.mongodb.net/?retryWrites=true&w=majority', {
+    });
 
-const defaultUsers = [
-  {
-    id: 1,
-    username: 'admin',
-    password: bcrypt.hashSync('admin', saltRounds),
-  },
-];
+    // Creation  of new users with the create method
+    const user = await User.create({
+      username,
+      password,
+    });
 
-async function login(username, password) {
-  const userFound = readOneUserFromUsername(username);
-  if (!userFound) return undefined;
-
-  const passwordMatch = await bcrypt.compare(password, userFound.password);
-  if (!passwordMatch) return undefined;
-
-  const token = jwt.sign(
-    { username }, // session data added to the payload (payload : part 2 of a JWT)
-    jwtSecret, // secret used for the signature (signature part 3 of a JWT)
-    { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
-  );
-
-  const authenticatedUser = {
-    username,
-    token,
-  };
-
-  return authenticatedUser;
+    console.log('Creation user succesfull :', user);
+    // You can add other methods here
+  } catch (err) {
+    console.error('Error in the user creationr :', err);
+  } finally {
+    // Disconnect of the database
+    mongoose.disconnect();
+  }
+  return true;
 }
 
-async function register(username, password) {
-  const userFound = readOneUserFromUsername(username);
-  if (userFound) return undefined;
+async function showAllUsers() {
+  try {
+    // Search all users in the database
+    await mongoose.connect('mongodb+srv://ProjetEvo:Vinci2023@projetweb.u3w9kax.mongodb.net/?retryWrites=true&w=majority');
+    const users = await User.find();
 
-  await createOneUser(username, password);
-
-  const token = jwt.sign(
-    { username }, // session data added to the payload (payload : part 2 of a JWT)
-    jwtSecret, // secret used for the signature (signature part 3 of a JWT)
-    { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
-  );
-
-  const authenticatedUser = {
-    username,
-    token,
-  };
-
-  return authenticatedUser;
+    // Show all users
+    console.log('List of user :');
+    users.forEach((user) => {
+      console.log(`ID: ${user.id}, link_avatar: ${user.link_avatar}, username: ${user.username}, password: ${user.password}`);
+    });
+  } catch (err) {
+    console.error('Error retrieving users:', err);
+  } finally {
+    mongoose.disconnect();
+  }
 }
 
-function readOneUserFromUsername(username) {
-  const users = parse(jsonDbPath, defaultUsers);
-  const indexOfUserFound = users.findIndex((user) => user.username === username);
-  if (indexOfUserFound < 0) return undefined;
+async function showAllUsernames() {
+  const usernamesTable = [];
+  try {
+    const users = await User.find();
 
-  return users[indexOfUserFound];
-}
-
-async function createOneUser(username, password) {
-  const users = parse(jsonDbPath, defaultUsers);
-
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  const createdUser = {
-    id: getNextId(),
-    username,
-    password: hashedPassword,
-  };
-
-  users.push(createdUser);
-
-  serialize(jsonDbPath, users);
-
-  return createdUser;
-}
-
-function getNextId() {
-  const users = parse(jsonDbPath, defaultUsers);
-  const lastItemIndex = users?.length !== 0 ? users.length - 1 : undefined;
-  if (lastItemIndex === undefined) return 1;
-  const lastId = users[lastItemIndex]?.id;
-  const nextId = lastId + 1;
-  return nextId;
+    users.forEach((user) => {
+      console.log(user.pseudo);
+      usernamesTable.push(user.pseudo);
+    });
+  } catch (erreur) {
+    console.error('Error retrieving userss :', erreur);
+  }
+  return usernamesTable;
 }
 
 module.exports = {
-  login,
-  register,
-  readOneUserFromUsername,
+  showAllUsers,
+  addUser,
+  showAllUsernames,
 };
