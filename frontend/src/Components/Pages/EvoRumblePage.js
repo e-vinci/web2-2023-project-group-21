@@ -112,40 +112,82 @@ function getDamage(attackName) {
 // question: pq quand j'appuie sur lien new page mes equipes ne se vide pas avant
 function renderGameState() {
   const main = document.querySelector('main');
-  // division de la fenêtre en 4
-  main.innerHTML = `<div class="container bg-white text-center mt-5">
-  <div class="row">
-    <div class="col gameWindow m-1 border"></div>
-    <div class="col  history m-1 border"></div>
-    <div class="w-100"></div>
-    <div class="col atkButtons m-1 border"></div>
-    <div class="col quitButton m-1 border"></div>
+// division de la fenêtre en 4
+main.innerHTML = `<div class="container bg-white text-center mt-5">
+<div class="row">
+  <div class="col gameWindow m-1 border bg-image" style="background-image: url(${background}); background-size: cover; background-position: center;">
+    
+    <div id="opponent">
+      <div  id="monstre_1">
+        <img src="${imgMonstre1}" class="img-fluid float-right">
+      </div>
+    </div>
+
+    <div id="spacebetween"></div>
+
+    <div id="player">
+      <div id="monstre_2">
+            <img src="${imgMonstre2}" class="img-fluid float-left">
+      </div>
+    </div>
+
   </div>
+
+  <div class="col  history m-1 border"></div>
+  <div class="w-100"></div>
+  <div class="col atkButtons m-1 border"></div>
+  <div class="col quitButton m-1 border"></div>
+</div>
 </div>`;
+
+const perso1 = document.getElementById('monstre_1');
+const perso2 = document.getElementById('monstre_2');
+
+// animation du monstre de l'équipe 1
+anime({
+    targets: perso1,
+    translateY: [
+        { value: '-10px', duration: 1500, easing: 'easeInOutQuad' }, // Déplacement vers le haut
+        { value: '0px', duration: 1500, easing: 'easeInOutQuad' },  // Retour vers le bas
+    ],
+    easing: 'linear', // Utiliser 'linear' pour un mouvement fluide
+    loop: true
+});
+
+// animation du monstre de l'équipe 2
+anime({
+  targets: perso2,
+  translateY: [
+      { value: '-10px', duration: 1400, easing: 'easeInOutQuad' }, // Déplacement vers le haut
+      { value: '0px', duration: 1400, easing: 'easeInOutQuad' },  // Retour vers le bas
+  ],
+  easing: 'linear', // Utiliser 'linear' pour un mouvement fluide
+  loop: true
+});
 
   // si l'une des équipes n'a plus de monstres => fin de partie
   if (gameState.listeMonstresEquipe2.length === 0 || gameState.listeMonstresEquipe1.length === 0) {
     main.innerHTML = `La partie est terminée<br>`;
     renderGoBackHomeButton();
   } else {
-    document.querySelector('.gameWindow').innerHTML += 'EQUIPE 1<br>';
+    // document.querySelector('.gameWindow').innerHTML += 'EQUIPE 1<br>';
 
-    // affichage du monstre actif des 2 équipes
-    document.querySelector('.gameWindow').innerHTML += `Nom monstre actif equipe 1: ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} PV: ${JSON.stringify(gameState.monstreActifEquipe1.pointsDeVie)}<br>`;
-    document.querySelector('.gameWindow').innerHTML += `Nom monstre actif equipe 2: ${JSON.stringify(gameState.monstreActifEquipe2.nom,)} PV: ${JSON.stringify(gameState.monstreActifEquipe2.pointsDeVie)}<br>`;
-    document.querySelector('.gameWindow').innerHTML += '<br>';
-    // affichage des monstres de la première équipe
-    for (let i = 0; i < gameState.listeMonstresEquipe1.length; i += 1) {
-      document.querySelector('.gameWindow').innerHTML += `Nom: ${JSON.stringify(gameState.listeMonstresEquipe1[i].nom)}<br>`;
-      document.querySelector('.gameWindow').innerHTML += `PV: ${JSON.stringify(gameState.listeMonstresEquipe1[i].pointsDeVie)}<br>`;
-    }
+    // // affichage du monstre actif des 2 équipes
+    // document.querySelector('.gameWindow').innerHTML += `Nom monstre actif equipe 1: ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} PV: ${JSON.stringify(gameState.monstreActifEquipe1.pointsDeVie)}<br>`;
+    // document.querySelector('.gameWindow').innerHTML += `Nom monstre actif equipe 2: ${JSON.stringify(gameState.monstreActifEquipe2.nom,)} PV: ${JSON.stringify(gameState.monstreActifEquipe2.pointsDeVie)}<br>`;
+    // document.querySelector('.gameWindow').innerHTML += '<br>';
+    // // affichage des monstres de la première équipe
+    // for (let i = 0; i < gameState.listeMonstresEquipe1.length; i += 1) {
+    //   document.querySelector('.gameWindow').innerHTML += `Nom: ${JSON.stringify(gameState.listeMonstresEquipe1[i].nom)}<br>`;
+    //   document.querySelector('.gameWindow').innerHTML += `PV: ${JSON.stringify(gameState.listeMonstresEquipe1[i].pointsDeVie)}<br>`;
+    // }
 
-    document.querySelector('.gameWindow').innerHTML += '<br><br><br><br>EQUIPE 2<br>';
-    // affichage des monstres de la deuxième équipe
-    for (let i = 0; i < gameState.listeMonstresEquipe2.length; i += 1) {
-      document.querySelector('.gameWindow').innerHTML += `Nom: ${JSON.stringify(gameState.listeMonstresEquipe2[i].nom)}<br>`;
-      document.querySelector('.gameWindow').innerHTML += `PV: ${JSON.stringify(gameState.listeMonstresEquipe2[i].pointsDeVie)}<br>`;
-    }
+    // document.querySelector('.gameWindow').innerHTML += '<br><br><br><br>EQUIPE 2<br>';
+    // // affichage des monstres de la deuxième équipe
+    // for (let i = 0; i < gameState.listeMonstresEquipe2.length; i += 1) {
+    //   document.querySelector('.gameWindow').innerHTML += `Nom: ${JSON.stringify(gameState.listeMonstresEquipe2[i].nom)}<br>`;
+    //   document.querySelector('.gameWindow').innerHTML += `PV: ${JSON.stringify(gameState.listeMonstresEquipe2[i].pointsDeVie)}<br>`;
+    // }
 
     document.querySelector('.history').appendChild(historique);
 
