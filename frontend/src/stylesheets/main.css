@@ -156,6 +156,21 @@
 .gameWindow{
     height: 600px;
 }
+
+
+#opponent{
+    float: right;
+}
+
+#player{
+    float: left;
+}
+
+#spacebetween {
+    border-color: #050801;
+    height: 80%;
+}
+
 #imgProfil{
     width: 200;
     height: 100;
@@ -166,6 +181,3 @@
   object-fit: contain,cover; /* Optionnel - ajuste la façon dont l'image est ajustée à ses dimensions */
   margin: 10px;
 };
-
-
-  

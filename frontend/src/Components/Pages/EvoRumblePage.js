@@ -1,4 +1,3 @@
-// ajout changement
 import anime from 'animejs';
 
 import imgMonstre1 from '../../img/water1.png';
@@ -155,25 +154,6 @@ anime({
     main.innerHTML = `La partie est terminée<br>`;
     renderGoBackHomeButton();
   } else {
-    // document.querySelector('.gameWindow').innerHTML += 'EQUIPE 1<br>';
-
-    // // affichage du monstre actif des 2 équipes
-    // document.querySelector('.gameWindow').innerHTML += `Nom monstre actif equipe 1: ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} PV: ${JSON.stringify(gameState.monstreActifEquipe1.pointsDeVie)}<br>`;
-    // document.querySelector('.gameWindow').innerHTML += `Nom monstre actif equipe 2: ${JSON.stringify(gameState.monstreActifEquipe2.nom,)} PV: ${JSON.stringify(gameState.monstreActifEquipe2.pointsDeVie)}<br>`;
-    // document.querySelector('.gameWindow').innerHTML += '<br>';
-    // // affichage des monstres de la première équipe
-    // for (let i = 0; i < gameState.listeMonstresEquipe1.length; i += 1) {
-    //   document.querySelector('.gameWindow').innerHTML += `Nom: ${JSON.stringify(gameState.listeMonstresEquipe1[i].nom)}<br>`;
-    //   document.querySelector('.gameWindow').innerHTML += `PV: ${JSON.stringify(gameState.listeMonstresEquipe1[i].pointsDeVie)}<br>`;
-    // }
-
-    // document.querySelector('.gameWindow').innerHTML += '<br><br><br><br>EQUIPE 2<br>';
-    // // affichage des monstres de la deuxième équipe
-    // for (let i = 0; i < gameState.listeMonstresEquipe2.length; i += 1) {
-    //   document.querySelector('.gameWindow').innerHTML += `Nom: ${JSON.stringify(gameState.listeMonstresEquipe2[i].nom)}<br>`;
-    //   document.querySelector('.gameWindow').innerHTML += `PV: ${JSON.stringify(gameState.listeMonstresEquipe2[i].pointsDeVie)}<br>`;
-    // }
-
     document.querySelector('.history').appendChild(historique);
 
     // création des outons pour qu'un joueur puisse attaquer en fonction de son pokémon
