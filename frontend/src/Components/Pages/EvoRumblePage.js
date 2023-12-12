@@ -18,7 +18,7 @@ générer  l'html après chaque click en fct du gameState
 fin de partie dès que une des équipes est vide 
 */
 
-
+// test fetch
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
 
