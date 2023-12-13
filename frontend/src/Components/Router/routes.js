@@ -6,6 +6,7 @@ import RulePage from '../Pages/RulesPage';
 import GameModePage from '../Pages/GameModePage';
 import LoginPage from '../Pages/LoginPage';
 import RegisterPage from '../Pages/RegisterPage';
+import Logout from '../Logout/Logout';
 
 const routes = {
   '/': HomePage,
@@ -15,7 +16,7 @@ const routes = {
   '/rule': RulePage,
   '/gameMode' : GameModePage,
   '/login' : LoginPage,
-  '/register' : RegisterPage
-};
+  '/register' : RegisterPage,
+  '/logout': Logout,};
 
 export default routes;

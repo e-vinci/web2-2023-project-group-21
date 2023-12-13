@@ -1,4 +1,11 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
+const jwtSecret = 'ilovemypizza!';
+const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
+
+const saltRounds = 10;
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -14,100 +21,8 @@ const UserSchema = new mongoose.Schema({
 // Create model
 const UsersModel = mongoose.model('Users', UserSchema);
 
-async function addUser(username, password) {
-  // Connection to the database
-  try {
-    await mongoose
-      .connect(
-        'mongodb+srv://ProjetEvo:Vinci2023@projetweb.u3w9kax.mongodb.net/evorumble?retryWrites=true&w=majority',
-        {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-        },
-      )
-      .then(() => console.log('MongoDB connected'))
-      .catch((err) => console.log(err));
-
-    await UsersModel.create({
-      username,
-      password,
-    }).then((user) => console.log('Creation user succesfull :', user));
-
-    // Disconnect of the database
-  } catch (err) {
-    console.error('Erreur lors de la création du joueur :', err);
-  } finally {
-    // Assurez-vous de déconnecter la base de données lorsque vous avez terminé
-    mongoose.disconnect();
-  }
-  return true;
-}
-
- function showAllUsers() {
-  // try {
-  //   // Search all users in the database
-  //   await mongoose.connect(
-  //     'mongodb+srv://ProjetEvo:Vinci2023@projetweb.u3w9kax.mongodb.net/evorumble?retryWrites=true&w=majority',
-  //     {
-  //       useNewUrlParser: true,
-  //       useUnifiedTopology: true,
-  //     },
-  //     );
-  //   const getUsers = await users.find();
-
-  //   // Show all users
-  //   console.log('List of user :');
-  //   getUsers.forEach((user) => {
-  //     console.log(
-  //       `ID: ${user.id}, link_avatar: ${user.link_avatar}, username: ${user.username}, password: ${user.password}`,
-  //     );
-  //   });
-  // } catch (err) {
-  //   console.error('Error retrieving users:', err);
-  // } finally {
-  //   mongoose.disconnect();
-  // }
-  return ["je suis rentré dans showAllUsers","oue"];
-};
-
-async function showAllUsernames() {
-  const usernamesTable = [];
-  try {
-    const getUsers = await users.find();
-
-    getUsers.forEach((user) => {
-      console.log(user.pseudo);
-      usernamesTable.push(user.pseudo);
-    });
-  } catch (erreur) {
-    console.error('Error retrieving userss :', erreur);
-  }
-  return usernamesTable;
-}
-
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const path = require('node:path');
-const { parse, serialize } = require('../utils/json');
-const { log } = require('node:console');
-
-const jwtSecret = 'ilovemypizza!';
-const lifetimeJwt = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
-
-const saltRounds = 10;
-
-const jsonDbPath = path.join(__dirname, '/../data/users.json');
-
-const defaultUsers = [
-  {
-    id: 1,
-    username: 'admin',
-    password: bcrypt.hashSync('admin', saltRounds),
-  },
-];
-
 async function login(username, password) {
-  const userFound = readOneUserFromUsername(username);
+  const userFound = await readOneUserFromUsername(username);
   if (!userFound) return undefined;
 
   const passwordMatch = await bcrypt.compare(password, userFound.password);
@@ -128,11 +43,10 @@ async function login(username, password) {
 }
 
 async function register(username, password) {
-  const userFound = readOneUserFromUsername(username);
+  const userFound = await readOneUserFromUsername(username);
   if (userFound) return undefined;
 
   await createOneUser(username, password);
-
   const token = jwt.sign(
     { username }, // session data added to the payload (payload : part 2 of a JWT)
     jwtSecret, // secret used for the signature (signature part 3 of a JWT)
@@ -147,46 +61,59 @@ async function register(username, password) {
   return authenticatedUser;
 }
 
-function readOneUserFromUsername(username) {
-  const users = parse(jsonDbPath, defaultUsers);
-  const indexOfUserFound = users.findIndex((user) => user.username === username);
-  if (indexOfUserFound < 0) return undefined;
-
-  return users[indexOfUserFound];
+async function readOneUserFromUsername(username) {
+  try {
+    // Search all users in the database
+    await mongoose.connect(
+      'mongodb+srv://ProjetEvo:Vinci2023@projetweb.u3w9kax.mongodb.net/evorumble?retryWrites=true&w=majority',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+    );
+    const getUser = await UsersModel.find({ username });
+    if (getUser !== undefined) {
+      return getUser[0];
+    }
+  } catch (err) {
+    console.error('Error retrieving users:', err);
+  } finally {
+    mongoose.disconnect();
+  }
+  return undefined;
 }
 
 async function createOneUser(username, password) {
-  const users = parse(jsonDbPath, defaultUsers);
-
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-  const createdUser = {
-    id: getNextId(),
-    username,
-    password: hashedPassword,
-  };
+  // Connection to the database
+  try {
+    await mongoose
+      .connect(
+        'mongodb+srv://ProjetEvo:Vinci2023@projetweb.u3w9kax.mongodb.net/evorumble?retryWrites=true&w=majority',
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        },
+      )
+      .then(() => console.log('MongoDB connected'))
+      .catch((err) => console.log(err));
 
-  users.push(createdUser);
+    await UsersModel.create({
+      username,
+      password: hashedPassword,
+    }).then((user) => console.log('Creation user succesfull :', user));
 
-  serialize(jsonDbPath, users);
-
-  return createdUser;
-}
-
-function getNextId() {
-  const users = parse(jsonDbPath, defaultUsers);
-  const lastItemIndex = users?.length !== 0 ? users.length - 1 : undefined;
-  if (lastItemIndex === undefined) return 1;
-  const lastId = users[lastItemIndex]?.id;
-  const nextId = lastId + 1;
-  return nextId;
+    // Disconnect of the database
+  } catch (err) {
+    console.error('Erreur lors de la création du joueur :', err);
+  } finally {
+    // Assurez-vous de déconnecter la base de données lorsque vous avez terminé
+    mongoose.disconnect();
+  }
 }
 
 module.exports = {
-  showAllUsers,
-  addUser,
-  showAllUsernames,
   login,
   register,
-  readOneUserFromUsername,
 };

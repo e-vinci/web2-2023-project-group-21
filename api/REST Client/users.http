@@ -9,13 +9,17 @@ GET http://localhost:3000/users
 GET {{baseUrl}}/users
 
 ###ajouter user
-POST {{baseUrl}}/users/register
+POST {{baseUrl}}/auths/register
 Content-Type: application/json
 
 {
-    "username":"test brian",
-    "password": "ddddd",
-    "passwordC":"ddddd"
+    "username":"test21",
+    "password": "oue",
+    "passwordC":"oue"
 }
+
+###login
+GET {{baseUrl}}/auths/login?username=test21&password=oue
+
 
 

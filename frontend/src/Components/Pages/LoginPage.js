@@ -1,14 +1,8 @@
 import Navigate from "../Router/Navigate";
-
-const STORE_NAME = 'user';
-
-const setUserSessionData = (user) => {
-  const storageValue = JSON.stringify(user);
-  localStorage.setItem(STORE_NAME, storageValue);
-};
+import Navbar from "../Navbar/Navbar";
+import {setAuthenticatedUser}from '../../utils/auths'
 
 const main = document.querySelector('main');
-
 
 const Login = () => {
     main.innerHTML = `<section class="vh-100 gradient-custom">
@@ -49,8 +43,6 @@ const Login = () => {
     </div>
   </section>`;
   
-
-//   const password = document.getElementById("connectPassword");
   const form = document.querySelector('#connectForm');
   form.addEventListener("submit", getUser)
 }
@@ -59,8 +51,7 @@ const Login = () => {
     const username = document.querySelector('#connectUsername').value;
     const password = document.querySelector('#connectPassword').value;
     
-     console.log(`skch ${  JSON.stringify(username)}`);
-     const url = `/api/users/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+     const url = `/api/auths/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
      const options = {
       method: 'GET',
@@ -69,9 +60,9 @@ const Login = () => {
       },
      };
      
-    const reponse = await fetch(url, options);
+    const response = await fetch(url, options);
   
-    if (!reponse.ok) {
+    if (!response.ok) {
       main.innerHTML = `<section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -112,9 +103,13 @@ const Login = () => {
       </div>
     </div>
   </section>`;
-    throw new Error(`Petit Soucis : ${reponse.status } : ${reponse.statusText}`)
+    throw new Error(`Petit Soucis : ${response.status } : ${response.statusText}`)
   };
-  setUserSessionData(username);
+  const authenticatedUser = await response.json();
+  console.log(authenticatedUser);
+  setAuthenticatedUser(authenticatedUser);
+
+  Navbar();
   Navigate('/')
 };
   

@@ -1,4 +1,4 @@
-import { removePathPrefix, usePathPrefix } from '../../utils/path-prefix';
+import { removePathPrefix} from '../../utils/path-prefix';
 import routes from './routes';
 
 const Router = () => {
@@ -20,7 +20,7 @@ function onNavBarClick() {
       if (!componentToRender) throw Error(`The ${uri} ressource does not exist.`);
 
       componentToRender();
-      window.history.pushState({}, '', usePathPrefix(uri));
+      window.history.pushState({}, '', uri);
     }
   });
 }

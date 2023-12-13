@@ -1,11 +1,9 @@
-import Navigate from "../Router/Navigate";
-
+import Navigate from '../Router/Navigate';
 
 const main = document.querySelector('main');
 
 const Register = () => {
-
-    main.innerHTML = `<section class="vh-100 gradient-custom">
+  main.innerHTML = `<section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -41,26 +39,26 @@ const Register = () => {
     </div>
   </section>
   `;
-  const formRegister=document.querySelector('form');
-  formRegister.addEventListener("submit", addUsers)
-};  
-async function addUsers (e){
+  const formRegister = document.querySelector('form');
+  formRegister.addEventListener('submit', addUsers);
+};
+async function addUsers(e) {
   e.preventDefault();
-   const username = document.querySelector('#registerUsername').value;
-   const password = document.querySelector('#registerPassword').value;
-   const passwordC = document.querySelector('#registerCPassword').value; 
-  
-   const options = {
-    method: 'POST',
-    body: JSON.stringify({username,password,passwordC}),
-    headers: {
-      'Content-Type' : 'application/json',
-    },
-   };
-   
-  const reponse = await fetch(`/api/users/register`, options);
+  const username = document.querySelector('#registerUsername').value;
+  const password = document.querySelector('#registerPassword').value;
+  const passwordC = document.querySelector('#registerCPassword').value;
 
-  if (!reponse.ok) {
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({ username, password, passwordC }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch(`/api/auths/register`, options);
+
+  if (!response.ok) {
     main.innerHTML = `<section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -103,10 +101,9 @@ async function addUsers (e){
       </div>
     </div>
   </section>`;
-  throw new Error(`Petit Soucis : ${reponse.status } : ${reponse.statusText}`)
-};
-
-Navigate('/login')
-};
+    throw new Error(`Petit Soucis : ${response.status} : ${response.statusText}`);
+  }
+  Navigate('/login');
+}
 
 export default Register;
