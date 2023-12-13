@@ -168,7 +168,7 @@ const monstersList = [
   },
   {
     id: 18,
-    nom: 'Crânemeur',
+    nom: 'Cranemeur',
     type: 'electric',
     faiblesses: ['terre'],
     resistances: ['vol', 'electric'],
@@ -305,7 +305,7 @@ const attacksAndDamage = [
   { name: 'Coup de nageoire', damage: 15, type: 'normal' },
   { name: 'Geyser', damage: 15, type: 'eau' },
   { name: 'Bourgeonnement', damage: 17, type: 'plante' },
-  { name: 'Vague électromagnétique', damage: 20 },
+  { name: 'Vague électromagnétique', damage: 20, type: 'electric' },
   { name: 'Sève acide', damage: 20, type: 'plante' },
   { name: 'Bombe végétale', damage: 12, type: 'plante' },
   { name: 'Racine électrique', damage: 15, type: 'electric' },
