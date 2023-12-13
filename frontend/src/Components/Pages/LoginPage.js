@@ -106,9 +106,7 @@ const Login = () => {
     throw new Error(`Petit Soucis : ${response.status } : ${response.statusText}`)
   };
   const authenticatedUser = await response.json();
-  console.log(authenticatedUser);
   setAuthenticatedUser(authenticatedUser);
-
   Navbar();
   Navigate('/')
 };

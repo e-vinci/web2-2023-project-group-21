@@ -1,4 +1,7 @@
 import Navigate from '../Router/Navigate';
+import {setAuthenticatedUser}from '../../utils/auths';
+import Navbar from "../Navbar/Navbar";
+
 
 const main = document.querySelector('main');
 
@@ -103,7 +106,10 @@ async function addUsers(e) {
   </section>`;
     throw new Error(`Petit Soucis : ${response.status} : ${response.statusText}`);
   }
-  Navigate('/login');
-}
+  const authenticatedUser = await response.json();
+  setAuthenticatedUser(authenticatedUser);
+
+  Navbar();
+  Navigate('/')}
 
 export default Register;
