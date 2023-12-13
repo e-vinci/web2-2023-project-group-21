@@ -189,3 +189,31 @@ body{
     overflow-y: hidden;
     overflow-x: hidden;
 }
+
+.plante{
+    background-color: greenyellow;
+}
+
+.electric{
+    background-color: yellow;
+}
+
+.normal{
+    background-color: grey;
+}
+
+.feu{
+    background-color: orange;
+}
+
+.eau{
+    background-color: lightskyblue;
+}
+
+.terre{
+    background-color: burlywood;
+}
+
+.vol{
+    background-color: silver;
+}

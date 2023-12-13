@@ -1,11 +1,83 @@
 // ajout changement
 import anime from 'animejs';
 
-import imgMonstre1 from '../../img/water1.png';
-import imgMonstre2 from '../../img/electric3.png';
+import adraqua from '../../img/evoMonsters/EAU/Adraqua.png';
+import carchateur from '../../img/evoMonsters/EAU/Carchateur.png';
+import diawing from '../../img/evoMonsters/EAU/Diawing.png';
+import etheragli from '../../img/evoMonsters/EAU/Etheragli.png';
+import jurazur from '../../img/evoMonsters/EAU/Jurazur.png';
+
+import cadalight from '../../img/evoMonsters/ELECTRIC/Cadalight.png';
+import cranenemeur from '../../img/evoMonsters/ELECTRIC/Cranénemeur.png';
+import minjastic from '../../img/evoMonsters/ELECTRIC/Minjastic.png';
+import nidoflash from '../../img/evoMonsters/ELECTRIC/Nidoflash.png';
+import poctali from '../../img/evoMonsters/ELECTRIC/Poctali.png';
+
+import blazesaur from '../../img/evoMonsters/FEU/Blazesaur.png';
+import flameo from '../../img/evoMonsters/FEU/Flameo.png';
+import lenuviadrake from '../../img/evoMonsters/FEU/Lenüviadrake.png';
+import morsaking from '../../img/evoMonsters/FEU/Morsaking.png';
+import pichouli from '../../img/evoMonsters/FEU/Pichouli.png';
+
+import biolux from '../../img/evoMonsters/PLANTE/Biolux.png';
+import chloropteryx from '../../img/evoMonsters/PLANTE/Chloropteryx.png';
+import foliodragon from '../../img/evoMonsters/PLANTE/Foliodragon.png';
+import penutalenuon from '../../img/evoMonsters/PLANTE/Penütalenüon.png';
+import phylornis from '../../img/evoMonsters/PLANTE/Phylornis.png';
+
+import evolika from '../../img/evoMonsters/SOL/Evolika.png';
+import fulgurenuon from '../../img/evoMonsters/SOL/Fulgurenüon.png';
+import mohawk from '../../img/evoMonsters/SOL/Mohawk.png';
+import mologround from '../../img/evoMonsters/SOL/Mologround.png';
+import soleraptor from '../../img/evoMonsters/SOL/Soleraptor.png';
+
+import airzure from '../../img/evoMonsters/VOL/Airzure.png';
+import carchadrak from '../../img/evoMonsters/VOL/Carchadrak.png';
+import cornoiseau from '../../img/evoMonsters/VOL/Cornoiseau.png';
+import ectoraptor from '../../img/evoMonsters/VOL/Ectoraptor.png';
+import libenuoh from '../../img/evoMonsters/VOL/Libenüoh.png';
+
 import background from '../../img/background.png';
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
+
+const dicoImg = {
+  "Adraqua": adraqua,
+  "Carchacteur": carchateur,
+  "Diawing": diawing,
+  "Etheragli": etheragli,
+  "Jurazur": jurazur,
+
+  "Cadalight": cadalight,
+  "Cranénemeur": cranenemeur,
+  "Minjastic": minjastic,
+  "Nidoflash": nidoflash,
+  "Poctali": poctali,
+
+  "Blazesaur": blazesaur,
+  "Flameo": flameo,
+  "Lenüviadrake": lenuviadrake,
+  "Morsaking": morsaking,
+  "Pichouli": pichouli,
+
+  "Biolux": biolux,
+  "Chloropteryx": chloropteryx,
+  "Foliodragon": foliodragon,
+  "Penütalenüon": penutalenuon,
+  "Phylornis": phylornis,
+
+  "Evolika": evolika,
+  "Fulgurenüon": fulgurenuon,
+  "Mohawk": mohawk,
+  "Mologround": mologround,
+  "Soleraptor": soleraptor,
+
+  "Airzure": airzure,
+  "Carchadrak": carchadrak,
+  "Cornoiseau": cornoiseau,
+  "Ectoraptor": ectoraptor,
+  "Libenüoh": libenuoh
+}
 
 const gameState = {
   listeMonstresEquipe1: [],
@@ -98,13 +170,20 @@ function getDamage(attackName) {
 function renderGameState() {
   const main = document.querySelector('main');
 // division de la fenêtre en 4
+
+
+// eslint-disable-next-line no-unused-vars
+const nomMonstre1 = gameState.monstreActifEquipe1.nom;
+// eslint-disable-next-line no-unused-vars
+const nomMonstre2 = gameState.monstreActifEquipe2.nom
+console.log(nomMonstre1);
 main.innerHTML = `<div class="container bg-white text-center mt-5">
 <div class="row">
   <div class="col gameWindow m-1 border bg-image" style="background-image: url(${background}); background-size: cover; background-position: center;">
     
     <div id="opponent">
       <div  id="monstre_1">
-        <img src="${imgMonstre1}" class="img-fluid float-right">
+        <img src="${dicoImg.nomMonstre1}" class="img-fluid float-right">
       </div>
     </div>
 
@@ -112,7 +191,7 @@ main.innerHTML = `<div class="container bg-white text-center mt-5">
 
     <div id="player">
       <div id="monstre_2">
-            <img src="${imgMonstre2}" class="img-fluid float-left">
+            <img src="${dicoImg.nomMonstre2}" class="img-fluid float-left">
       </div>
     </div>
 
@@ -162,21 +241,21 @@ anime({
     for (let i = 0; i < 4; i += 1) {
       const attackName = gameState.monstreActifEquipe1.attaques[i];
       const atk = document.createElement('button');
-      atk.className = 'btn btn-dark m-1';
-      atk.innerHTML = `<div class="nom">${attackName} </div><div class="damage">${(getDamage(attackName)).damage} damage </div><div class="type"> (${(getDamage(attackName)).type})</div>`;
+      const atkProperties = getDamage(attackName);
+      atk.className = `btn btn-dark m-1 ${atkProperties.type}`;
+      atk.innerHTML = `<div class="nom">${attackName} </div><div class="damage">${atkProperties.damage} damage </div><div class="type"> (${atkProperties.type})</div>`;
       atk.addEventListener('click', (e) => {
-        const attack = getDamage(attackName);
-        const nbDegats = attack.damage;
+        const nbDegats = atkProperties.damage;
 
         const nom = e.currentTarget.querySelector('.nom').innerHTML;
 
         switch (true) {
-          case gameState.monstreActifEquipe2.faiblesses.includes(attack.type):
+          case gameState.monstreActifEquipe2.faiblesses.includes(atkProperties.type):
             historique.innerHTML += `Le joueur 1 a joué ${nom} pour une valeur de ${nbDegats * 2} pv<br>`;
             gameState.monstreActifEquipe2.pointsDeVie -= nbDegats * 2;
             break;
 
-          case gameState.monstreActifEquipe2.resistances.includes(attack.type):
+          case gameState.monstreActifEquipe2.resistances.includes(atkProperties.type):
             historique.innerHTML += `Le joueur 1 a joué ${nom} pour une valeur de ${nbDegats / 2} pv<br>`;
             gameState.monstreActifEquipe2.pointsDeVie -= nbDegats / 2;
             break;
