@@ -204,8 +204,7 @@ const monstersList = [
   },
   {
     id: 21,
-    image: 'flying_monster21.png',
-    nom: 'VolMonstre1',
+    nom: 'Airzure',
     type: 'vol',
     faiblesses: ['electric'],
     resistances: ['terre', 'plante'],
@@ -214,8 +213,7 @@ const monstersList = [
   },
   {
     id: 22,
-    image: 'flying_monster22.png',
-    nom: 'VolMonstre2',
+    nom: 'Cornoiseau',
     type: 'vol',
     faiblesses: ['electric'],
     resistances: ['terre', 'plante'],
@@ -224,8 +222,7 @@ const monstersList = [
   },
   {
     id: 23,
-    image: 'flying_monster23.png',
-    nom: 'VolMonstre3',
+    nom: 'Libéoh',
     type: 'vol',
     faiblesses: ['electric'],
     resistances: ['terre', 'plante'],
@@ -234,8 +231,7 @@ const monstersList = [
   },
   {
     id: 24,
-    image: 'flying_monster24.png',
-    nom: 'VolMonstre4',
+    nom: 'Ectorapto',
     type: 'vol',
     faiblesses: ['electric'],
     resistances: ['terre', 'plante'],
@@ -244,13 +240,12 @@ const monstersList = [
   },
   {
     id: 25,
-    image: 'flying_monster25.png',
-    nom: 'VolMonstre5',
+    nom: 'Carchadrak',
     type: 'vol',
     faiblesses: ['electric'],
     resistances: ['terre', 'plante'],
     pointsDeVie: 90,
-    attaques: ['Vent cinglant', 'Plongeon rapide', 'Éclair stratosphérique', 'Vortex de vent'],
+    attaques: ['Vent cinglant', 'Fleur empoisonnée', 'Éclair stratosphérique', 'Vortex de vent'],
   },
   {
     id: 26,
