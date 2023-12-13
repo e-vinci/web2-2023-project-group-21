@@ -58,7 +58,7 @@ const RulePage = () => {
             <td class="bg-danger p-0">1/2</td>
             <td class="bg-danger p-0">1/2</td>
             <td class="bg-success p-0">2</td>
-            <td class="bg-danger p-0">1/2</td>
+            <td class=" p-0">1</td>
             <td class="p-0">1</td>
             <td class="p-0">1</td>
         </tr>
