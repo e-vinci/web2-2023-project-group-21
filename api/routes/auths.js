@@ -31,7 +31,6 @@ router.get('/login', async (req, res) => {
   const authenticatedUser = await login(username, password);
 
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized
-  console.log('je suis connecté');
   return res.json(authenticatedUser);
 });
 
