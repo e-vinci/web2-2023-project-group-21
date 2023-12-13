@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 const express = require('express');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const bcrypt = require('bcrypt');
 const {
   showAllUsers, addUser, showAllUsernames,
@@ -8,14 +6,12 @@ const {
 
 const router = express.Router();
 
-/* GET users listing. /
-router.get('/', async (req, res) => {
-  const allUser = await showAllUsers();
-  return res.json(allUser);
-}).
+// GET users listing.
+router.get('/', (req, res) => {
+  return res.json(showAllUsers());
+});
 
-/ Create user */
-
+// Create user
 router.post('/register', async (req, res) => {
   const username = req?.body?.username?.length !== 0 ? req.body.username : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
@@ -39,6 +35,19 @@ router.post('/register', async (req, res) => {
   }
 
   return res.json(register);
+});
+
+router.get('/login', async (req, res) => {
+  const username = req?.query?.username?.length !== 0 ? req.query.username : undefined;
+  const password = req?.query?.password?.length !== 0 ? req.query.password : undefined;
+  console.log(username, password, 'dfsdfs');
+  if (!username || !password) return res.sendStatus(400);
+  const user = await getUser(username);
+  console.log(user);
+  if (user === password) {
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(404);
 });
 
 module.exports = router;
