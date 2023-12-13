@@ -53,7 +53,7 @@ const monstersList = [
   },
   {
     id: 6,
-    nom: 'Leafwing',
+    nom: 'Diawing',
     type: 'eau',
     faiblesses: ['electric', 'plante'],
     resistances: ['feu', 'eau'],
@@ -71,7 +71,7 @@ const monstersList = [
   },
   {
     id: 8,
-    nom: 'Orazur',
+    nom: 'Jurazur',
     type: 'eau',
     faiblesses: ['electric', 'plante'],
     resistances: ['feu', 'eau'],
@@ -80,7 +80,7 @@ const monstersList = [
   },
   {
     id: 9,
-    nom: 'Etheragon',
+    nom: 'Etheragli',
     type: 'eau',
     faiblesses: ['electric', 'plante'],
     resistances: ['feu', 'eau'],
@@ -131,6 +131,7 @@ const monstersList = [
   },
   {
     id: 14,
+    nom : 'Biolux',
     type: 'plante',
     faiblesses: ['feu', 'vol'],
     resistances: ['plante', 'electric', 'terre','eau'],
@@ -301,7 +302,7 @@ const monstersList = [
 const attacksAndDamage = [
   { name: 'Brûlure persistante', damage: 20, type: 'feu' },
   { name: 'Tourbillon d\'eau', damage: 12, type: 'eau' },
-  { name: 'Coup de nageoire', damage: 15, type: 'eau' }, // normal ?
+  { name: 'Coup de nageoire', damage: 15, type: 'normal' },
   { name: 'Geyser', damage: 15, type: 'eau' },
   { name: 'Bourgeonnement', damage: 17, type: 'plante' },
   { name: 'Vague électromagnétique', damage: 20 },
@@ -312,7 +313,7 @@ const attacksAndDamage = [
   { name: 'Rafale électrifiée', damage: 12, type: 'electric' },
   { name: 'Éclat aérien', damage: 15, type: 'vol' },
   { name: 'Attaque aérienne', damage: 15, type: 'vol' },
-  { name: 'Frappe statique', damage: 17, type: 'electric' }, // normal ?
+  { name: 'Frappe statique', damage: 17, type: 'normal' }, 
   { name: 'Attaque électrique', damage: 20, type: 'electric' },
   { name: 'Muraille de pierre', damage: 20, type: 'terre' },
   { name: 'Magma en fusion', damage: 12, type: 'feu' },
@@ -360,7 +361,7 @@ const attacksAndDamage = [
   { name: 'Éclair électrique', damage: 14, type: 'electric' },
   { name: 'Éclaboussures électrifiées', damage: 20, type: 'eau' },
   { name: 'Éclatement tellurique', damage: 18, type: 'terre' },
-  { name: 'Écrasement massif', damage: 14, type: 'terre' }, // normal?
+  { name: 'Écrasement massif', damage: 14, type: 'normal' }, 
   { name: 'Écrasement de pierre', damage: 14, type: 'terre' },
   { name: 'Éruption rocheuse', damage: 11, type: 'terre' },
   { name: 'Explosion de flammes', damage: 17, type: 'feu' },
@@ -373,7 +374,7 @@ const attacksAndDamage = [
   { name: 'Foudre aveuglante', damage: 11, type: 'electric' },
   { name: 'Fracas sismique', damage: 13, type: 'terre' },
   { name: 'Frappe aérodynamique', damage: 14, type: 'vol' },
-  { name: 'Hurlement supersonique', damage: 19, type: 'electric' }, // normal ?
+  { name: 'Hurlement supersonique', damage: 19, type: 'normal' }, 
   { name: 'Hydrocanon', damage: 17, type: 'eau' },
   { name: 'Inferno', damage: 20, type: 'feu' },
   { name: "Jet d'eau", damage: 12, type: 'eau' },
@@ -393,7 +394,7 @@ const attacksAndDamage = [
   { name: 'Secousse tellurique', damage: 17, type: 'terre' },
   { name: 'Sables mouvants', damage: 15, type: 'terre' },
   { name: 'Spirale ascendante', damage: 12, type: 'vol' },
-  { name: 'Tempête de griffes', damage: 17, type: 'vol' }, // normal
+  { name: 'Tempête de griffes', damage: 17, type: 'normal' }, 
   { name: 'Tempête statique', damage: 13, type: 'vol' },
   { name: 'Tornade florale', damage: 16, type: 'plante' },
   { name: 'Tornade', damage: 13, type: 'vol' },
