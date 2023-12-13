@@ -160,15 +160,18 @@
 
 #opponent{
     float: right;
+    margin-top: 10%;
+    margin-right: 10%;
 }
 
 #player{
     float: left;
+    margin-left: 10%;
 }
 
 #spacebetween {
     border-color: #050801;
-    height: 80%;
+    height: 70%;
 }
 
 #imgProfil{
@@ -181,3 +184,8 @@
   object-fit: contain,cover; /* Optionnel - ajuste la façon dont l'image est ajustée à ses dimensions */
   margin: 10px;
 };
+
+body{
+    overflow-y: hidden;
+    overflow-x: hidden;
+}

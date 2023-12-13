@@ -194,6 +194,7 @@ anime({
           [gameState.monstreActifEquipe2] = gameState.listeMonstresEquipe2;
         } else {
           playOrdi();
+          console.log(gameState.monstreActifEquipe1.pointsDeVie);
           if (gameState.monstreActifEquipe1.pointsDeVie <= 0) {
             historique.innerHTML += `<div class="text-danger">EQUIPE 1: Le monstre ${JSON.stringify(gameState.monstreActifEquipe1.nom,)} est mort</div>`;
             const index = gameState.listeMonstresEquipe1.indexOf(gameState.monstreActifEquipe1);
@@ -243,17 +244,17 @@ anime({
     switch (true) {
       case gameState.monstreActifEquipe1.faiblesses.includes(atkOrdi.type):
         historique.innerHTML += `Le joueur 2 a joué ${atkOrdi.name} pour une valeur de ${nbDegatsOrdi * 2} pv<br>`;
-        gameState.monstreActifEquipe2.pointsDeVie -= nbDegatsOrdi * 2;
+        gameState.monstreActifEquipe1.pointsDeVie -= nbDegatsOrdi * 2;
         break;
 
       case gameState.monstreActifEquipe1.resistances.includes(atkOrdi.type):
         historique.innerHTML += `Le joueur 2 a joué ${atkOrdi.name} pour une valeur de ${nbDegatsOrdi / 2} pv<br>`;
-        gameState.monstreActifEquipe2.pointsDeVie -= nbDegatsOrdi / 2;
+        gameState.monstreActifEquipe1.pointsDeVie -= nbDegatsOrdi / 2;
         break;
 
       default:
         historique.innerHTML += `Le joueur 2 a joué ${atkOrdi.name} pour une valeur de ${nbDegatsOrdi} pv<br>`;
-        gameState.monstreActifEquipe2.pointsDeVie -= nbDegatsOrdi;
+        gameState.monstreActifEquipe1.pointsDeVie -= nbDegatsOrdi;
         break;
     }
   }
