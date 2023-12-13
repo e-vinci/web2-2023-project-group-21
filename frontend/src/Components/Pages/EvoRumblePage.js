@@ -8,25 +8,25 @@ import etheragli from '../../img/evoMonsters/EAU/Etheragli.png';
 import jurazur from '../../img/evoMonsters/EAU/Jurazur.png';
 
 import cadalight from '../../img/evoMonsters/ELECTRIC/Cadalight.png';
-import cranenemeur from '../../img/evoMonsters/ELECTRIC/Cranénemeur.png';
+import cranenemeur from '../../img/evoMonsters/ELECTRIC/Cranenemeur.png';
 import minjastic from '../../img/evoMonsters/ELECTRIC/Minjastic.png';
 import nidoflash from '../../img/evoMonsters/ELECTRIC/Nidoflash.png';
 import poctali from '../../img/evoMonsters/ELECTRIC/Poctali.png';
 
 import blazesaur from '../../img/evoMonsters/FEU/Blazesaur.png';
 import flameo from '../../img/evoMonsters/FEU/Flameo.png';
-import lenuviadrake from '../../img/evoMonsters/FEU/Lenüviadrake.png';
+import leviadrake from '../../img/evoMonsters/FEU/Leviadrake.png';
 import morsaking from '../../img/evoMonsters/FEU/Morsaking.png';
 import pichouli from '../../img/evoMonsters/FEU/Pichouli.png';
 
 import biolux from '../../img/evoMonsters/PLANTE/Biolux.png';
 import chloropteryx from '../../img/evoMonsters/PLANTE/Chloropteryx.png';
 import foliodragon from '../../img/evoMonsters/PLANTE/Foliodragon.png';
-import penutalenuon from '../../img/evoMonsters/PLANTE/Penütalenüon.png';
+import petaleon from '../../img/evoMonsters/PLANTE/Petaleon.png';
 import phylornis from '../../img/evoMonsters/PLANTE/Phylornis.png';
 
 import evolika from '../../img/evoMonsters/SOL/Evolika.png';
-import fulgurenuon from '../../img/evoMonsters/SOL/Fulgurenüon.png';
+import fulgureon from '../../img/evoMonsters/SOL/Fulgureon.png';
 import mohawk from '../../img/evoMonsters/SOL/Mohawk.png';
 import mologround from '../../img/evoMonsters/SOL/Mologround.png';
 import soleraptor from '../../img/evoMonsters/SOL/Soleraptor.png';
@@ -35,7 +35,7 @@ import airzure from '../../img/evoMonsters/VOL/Airzure.png';
 import carchadrak from '../../img/evoMonsters/VOL/Carchadrak.png';
 import cornoiseau from '../../img/evoMonsters/VOL/Cornoiseau.png';
 import ectoraptor from '../../img/evoMonsters/VOL/Ectoraptor.png';
-import libenuoh from '../../img/evoMonsters/VOL/Libenüoh.png';
+import libeoh from '../../img/evoMonsters/VOL/Libeoh.png';
 
 import background from '../../img/background.png';
 import Navigate from '../Router/Navigate';
@@ -43,7 +43,7 @@ import { clearPage } from '../../utils/render';
 
 const dicoImg = {
   "Adraqua": adraqua,
-  "Carchacteur": carchateur,
+  "Carchateur": carchateur,
   "Diawing": diawing,
   "Etheragli": etheragli,
   "Jurazur": jurazur,
@@ -56,18 +56,18 @@ const dicoImg = {
 
   "Blazesaur": blazesaur,
   "Flameo": flameo,
-  "Lenüviadrake": lenuviadrake,
+  "Leviadrake": leviadrake,
   "Morsaking": morsaking,
   "Pichouli": pichouli,
 
   "Biolux": biolux,
   "Chloropteryx": chloropteryx,
   "Foliodragon": foliodragon,
-  "Penütalenüon": penutalenuon,
+  "Petaleon": petaleon,
   "Phylornis": phylornis,
 
   "Evolika": evolika,
-  "Fulgurenüon": fulgurenuon,
+  "Fulgureon": fulgureon,
   "Mohawk": mohawk,
   "Mologround": mologround,
   "Soleraptor": soleraptor,
@@ -76,7 +76,7 @@ const dicoImg = {
   "Carchadrak": carchadrak,
   "Cornoiseau": cornoiseau,
   "Ectoraptor": ectoraptor,
-  "Libenüoh": libenuoh
+  "Libeoh": libeoh
 }
 
 const gameState = {
@@ -176,14 +176,15 @@ function renderGameState() {
 const nomMonstre1 = gameState.monstreActifEquipe1.nom;
 // eslint-disable-next-line no-unused-vars
 const nomMonstre2 = gameState.monstreActifEquipe2.nom
-console.log(nomMonstre1);
+console.log(`EQ1: ${nomMonstre1}`);
+console.log(`EQ2: ${nomMonstre2}`);
 main.innerHTML = `<div class="container bg-white text-center mt-5">
 <div class="row">
   <div class="col gameWindow m-1 border bg-image" style="background-image: url(${background}); background-size: cover; background-position: center;">
     
     <div id="opponent">
       <div  id="monstre_1">
-        <img src="${dicoImg.nomMonstre1}" class="img-fluid float-right">
+        <img src="${dicoImg[nomMonstre1]}" class="img-fluid float-right">
       </div>
     </div>
 
@@ -191,7 +192,7 @@ main.innerHTML = `<div class="container bg-white text-center mt-5">
 
     <div id="player">
       <div id="monstre_2">
-            <img src="${dicoImg.nomMonstre2}" class="img-fluid float-left">
+            <img src="${dicoImg[nomMonstre2]}" class="img-fluid float-left">
       </div>
     </div>
 
