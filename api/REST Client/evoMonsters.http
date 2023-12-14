@@ -1,0 +1,9 @@
+######### NORMAL OPERATION  ###########
+
+### Read all users
+GET http://localhost:3000/evoRumble
+
+### Read all pizzas with File variable
+@baseUrl = http://localhost:3000
+
+GET {{baseUrl}}/evoRumble
