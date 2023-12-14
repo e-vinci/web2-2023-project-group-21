@@ -55,7 +55,7 @@ const Navbar = () => {
         </div>
         <div class="nav-item col-4 d-flex justify-content-end" id="divDroite">
           <div class="nav-item p-2">
-            <a class="nav-link" href="#" data-uri="/profil">Profil de ${authenticatedUser.username}</a>
+            <a class="nav-link" href="#" data-uri="/profil">Profil de ${authenticatedUser?.username}</a>
           </div>
           <div class="nav-item p-2">
           <a class="nav-link" href="#" data-uri="/logout">Logout</a>
