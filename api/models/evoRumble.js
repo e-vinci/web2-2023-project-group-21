@@ -413,6 +413,7 @@ function getAllMonsters() {
   const monsters = parse(jsonDbPath, monstersList);
   return monsters;
 }
+
 function getAllAttacks() {
   const attacks = parse(jsonDbPath, attacksAndDamage);
   return attacks;

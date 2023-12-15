@@ -7,3 +7,1209 @@ GET http://localhost:3000/evoRumble
 @baseUrl = http://localhost:3000
 
 GET {{baseUrl}}/evoRumble
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 1,
+    "nom": "Pichouli",
+    "type": "feu",
+    "faiblesses": ["eau", "terre"],
+    "resistances": ["feu", "plante"],
+    "pointsDeVie": 80,
+    "attaques": ["Boule de feu", "Crocs ardents", "Frappe statique", "Explosion de flammes"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 2,
+    "nom": "Morsaking",
+    "type": "feu",
+    "faiblesses": ["eau", "terre"],
+    "resistances": ["feu", "plante"],
+    "pointsDeVie": 90,
+    "attaques": ["Fracas sismique", "Éclatement tellurique", "Brasier furieux", "Lance de feu"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 3,
+    "nom": "Leviadrake",
+    "type": "feu",
+    "faiblesses": ["eau", "terre"],
+    "resistances": ["feu", "plante"],
+    "pointsDeVie": 85,
+    "attaques": ["Frappe aérodynamique", "Chaleur intense", "Inferno", "Explosion pyrotechnique"]
+}
+
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 4,
+    "nom": "Flameo",
+    "type": "feu",
+    "faiblesses": ["eau", "terre"],
+    "resistances": ["feu", "plante"],
+    "pointsDeVie": 95,
+    "attaques": ["Boule de feu", "Hydrocanon", "Lacération aquatique", "Explosion incandescente"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 5,
+    "nom": "Blazesaur",
+    "type": "feu",
+    "faiblesses": ["eau", "terre"],
+    "resistances": ["feu", "plante"],
+    "pointsDeVie": 100,
+    "attaques": ["Crocs ardents", "Chaleur intense", "Fournaise", "Déflagration"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 6,
+    "nom": "Diawing",
+    "type": "eau",
+    "faiblesses": ["electric", "plante"],
+    "resistances": ["feu", "eau"],
+    "pointsDeVie": 70,
+    "attaques": ["Vague d'eau", "Tornade", "Tourbillon d'eau", "Rafale de plumes"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 7,
+    "nom": "Adraqua",
+    "type": "eau",
+    "faiblesses": ["electric", "plante"],
+    "resistances": ["feu", "eau"],
+    "pointsDeVie": 80,
+    "attaques": ["Coup de nageoire", "Hydrocanon", "Geyser", "Éclaboussures électrifiées"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 8,
+    "nom": "Jurazur",
+    "type": "eau",
+    "faiblesses": ["electric", "plante"],
+    "resistances": ["feu", "eau"],
+    "pointsDeVie": 75,
+    "attaques": ["Jet d'eau", "Averse", "Muraille de pierre", "Lacération aquatique"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 9,
+    "nom": "Etheragli",
+    "type": "eau",
+    "faiblesses": ["electric", "plante"],
+    "resistances": ["feu", "eau"],
+    "pointsDeVie": 85,
+    "attaques": ["Cascade", "Bulles éclatantes", "Torrent furieux", "Inondation totale"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 10,
+    "nom": "Carchateur",
+    "type": "eau",
+    "faiblesses": ["electric", "plante"],
+    "resistances": ["feu", "eau"],
+    "pointsDeVie": 90,
+    "attaques": ["Vague d'eau", "Champ magnétique", "Vortex électromagnétique", "Raz-de-marée"]
+  }
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 11,
+    "nom": "Phylornis",
+    "type": "plante",
+    "faiblesses": ["feu", "vol"],
+    "resistances": ["plante", "electric", "terre", "eau"],
+    "pointsDeVie": 70,
+    "attaques": ["Vent cinglant", "Étreinte épineuse", "Éruption de fleurs", "Tempête de pétales"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 12,
+    "nom": "Foliodragon",
+    "type": "plante",
+    "faiblesses": ["feu", "vol"],
+    "resistances": ["plante", "electric", "terre", "eau"],
+    "pointsDeVie": 80,
+    "attaques": ["Liane tranchante", "Feuilles tranchantes", "Coup de nageoire", "Fleur empoisonnée"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 13,
+    "nom": "Chloropteryx",
+    "type": "plante",
+    "faiblesses": ["feu", "vol"],
+    "resistances": ["plante", "electric", "terre", "eau"],
+    "pointsDeVie": 75,
+    "attaques": ["Brûlure persistante", "Tornade florale", "Danse des feuilles", "Volcanique"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 14,
+    "nom": "Biolux",
+    "type": "plante",
+    "faiblesses": ["feu", "vol"],
+    "resistances": ["plante", "electric", "terre", "eau"],
+    "pointsDeVie": 85,
+    "attaques": ["Bombe végétale", "Racines envahissantes", "Vortex végétal", "Tourbillon électrique"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 15,
+    "nom": "Petaleon",
+    "type": "plante",
+    "faiblesses": ["feu", "vol"],
+    "resistances": ["plante", "electric", "terre", "eau"],
+    "pointsDeVie": 90,
+    "attaques": ["Fouet végétal", "Spirale ascendante", "Branche foudroyante", "Vortex végétal"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 16,
+    "nom": "Poctali",
+    "type": "electric",
+    "faiblesses": ["terre"],
+    "resistances": ["vol", "electric"],
+    "pointsDeVie": 70,
+    "attaques": ["Éclair rapide", "Cage électrique", "Orage dévastateur", "Foudre en chaîne"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 17,
+    "nom": "Nidoflash",
+    "type": "electric",
+    "faiblesses": ["terre"],
+    "resistances": ["vol", "electric"],
+    "pointsDeVie": 80,
+    "attaques": ["Rayon paralysant", "Décharge électrique", "Écrasement de pierre", "Charge électrisante"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 18,
+    "nom": "Cranemeur",
+    "type": "electric",
+    "faiblesses": ["terre"],
+    "resistances": ["vol", "electric"],
+    "pointsDeVie": 75,
+    "attaques": ["Étreinte épineuse", "Tempête statique", "Fracas sismique", "Vague électromagnétique"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 19,
+    "nom": "Cadalight",
+    "type": "electric",
+    "faiblesses": ["terre"],
+    "resistances": ["vol", "electric"],
+    "pointsDeVie": 85,
+    "attaques": ["Électrochoc", "Frappe aérodynamique", "Coup de tonnerre", "Éclat aérien"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 20,
+    "nom": "Minjastic",
+    "type": "electric",
+    "faiblesses": ["terre"],
+    "resistances": ["vol", "electric"],
+    "pointsDeVie": 90,
+    "attaques": ["Foudre aveuglante", "Tempête statique", "Rafale électrique", "Explosion électrique"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 21,
+    "nom": "Airzure",
+    "type": "vol",
+    "faiblesses": ["electric"],
+    "resistances": ["terre", "plante"],
+    "pointsDeVie": 70,
+    "attaques": ["Vent cinglant", "Plongeon rapide", "Tempête de griffes", "Hurlement supersonique"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 22,
+    "nom": "Cornoiseau",
+    "type": "vol",
+    "faiblesses": ["electric"],
+    "resistances": ["terre", "plante"],
+    "pointsDeVie": 80,
+    "attaques": ["Tornade", "Attaque aérienne", "Danse des courants", "Spirale ascendante"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 23,
+    "nom": "Libeoh",
+    "type": "vol",
+    "faiblesses": ["electric"],
+    "resistances": ["terre", "plante"],
+    "pointsDeVie": 75,
+    "attaques": ["Éclat aérien", "Tourbillon d'ailes", "Frappe aérodynamique", "Rafale électrifiée"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 24,
+    "nom": "Ectoraptor",
+    "type": "vol",
+    "faiblesses": ["electric"],
+    "resistances": ["terre", "plante"],
+    "pointsDeVie": 85,
+    "attaques": ["Rafale de plumes", "Nuage d'illusion", "Vortex de vent", "Déferlante céleste"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 25,
+    "nom": "Carchadrak",
+    "type": "vol",
+    "faiblesses": ["electric"],
+    "resistances": ["terre", "plante"],
+    "pointsDeVie": 90,
+    "attaques": ["Vent cinglant", "Fleur empoisonnée", "Éclair stratosphérique", "Vortex de vent"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 26,
+    "nom": "Evolika",
+    "type": "terre",
+    "faiblesses": ["eau", "plante"],
+    "resistances": "electric",
+    "pointsDeVie": 70,
+    "attaques": ["Secousse tellurique", "Jet de roches", "Tourbillon de gravier", "Éclatement tellurique"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 27,
+    "nom": "Mologround",
+    "type": "terre",
+    "faiblesses": ["eau", "plante"],
+    "resistances": "electric",
+    "pointsDeVie": 80,
+    "attaques": ["Fracas sismique", "Inferno", "Fissure profonde", "Pluie de météorites"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 28,
+    "nom": "Soleraptor",
+    "type": "terre",
+    "faiblesses": ["eau", "plante"],
+    "resistances": "electric",
+    "pointsDeVie": 75,
+    "attaques": ["Lance de stalactites", "Spirale ascendante", "Sables mouvants", "Pilonnage géant"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 29,
+    "nom": "Mohawk",
+    "type": "terre",
+    "faiblesses": ["eau", "plante"],
+    "resistances": "electric",
+    "pointsDeVie": 85,
+    "attaques": ["Éclair rapide", "Éruption rocheuse", "attaque de pierre", "Orage dévastateur"]
+}
+
+### Add new evoMonster (lancé)
+
+POST {{baseUrl}}/evoRumble
+Content-Type: application/json
+
+{
+    "id": 30,
+    "nom": "Fulgureon",
+    "type": "terre",
+    "faiblesses": ["eau", "plante"],
+    "resistances": "electric",
+    "pointsDeVie": 90,
+    "attaques": ["Secousse tellurique", "Jet de roches", "Magma en fusion", "Muraille de pierre"]
+}
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ 
+    "name": "Brûlure persistante", "damage": 20, "type": "feu" 
+}
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ 
+    "name": "Tourbillon d'eau", "damage": 12, "type": "eau"
+}
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Coup de nageoire", "damage": 15, "type": "normal" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Geyser", "damage": 15, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Bourgeonnement", "damage": 17, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Vague électromagnétique", "damage": 20, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Sève acide", "damage": 20, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Bombe végétale", "damage": 12, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Racine électrique", "damage": 15, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "attaque de pierre", "damage": 20, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Rafale électrifiée", "damage": 12, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Éclat aérien", "damage": 15, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Attaque aérienne", "damage": 15, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Frappe statique", "damage": 17, "type": "normal" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Attaque électrique", "damage": 20, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+
+{ "name": "Muraille de pierre", "damage": 20, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Magma en fusion", "damage": 12, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Flammèche", "damage": 15, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Cage électrique", "damage": 15, "type": "electric" }
+
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Orage dévastateur", "damage": 17, "type": "electric" }
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Foudre en chaîne", "damage": 20, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Fleur empoisonnée", "damage": 12, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Croissance rapide", "damage": 14, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Feuilles tranchantes", "damage": 19, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Rayon paralysant", "damage": 13, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Décharge électrique", "damage": 11, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Choc magnétique", "damage": 17, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Nuage d'illusion", "damage": 11, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Cascade", "damage": 20, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Torrent furieux", "damage": 16, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Inondation totale", "damage": 14, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Fouet végétal", "damage": 11, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Étreinte épineuse", "damage": 15, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+
+{ "name": "Éruption de fleurs", "damage": 12, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Tempête de pétales", "damage": 19, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Averse", "damage": 11, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Boule de feu", "damage": 15, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Branche foudroyante", "damage": 12, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Brasier furieux", "damage": 19, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Bulles éclatantes", "damage": 16, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Bulle protectrice", "damage": 18, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Chaleur intense", "damage": 12, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Charge électrisante", "damage": 16, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Vortex électromagnétique", "damage": 18, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Raz-de-marée", "damage": 17, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Crocs ardents", "damage": 18, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Coup de tonnerre", "damage": 16, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Danse des courants", "damage": 18, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Danse des feuilles", "damage": 19, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Rempart minéral", "damage": 15, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Champ magnétique", "damage": 16, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Déflagration minérale", "damage": 20, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Déflagration", "damage": 15, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Déferlante céleste", "damage": 17, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Déferlante électrique", "damage": 20, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Éclair fulgurant", "damage": 20, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Éclair rapide", "damage": 15, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Éclair stratosphérique", "damage": 16, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Éclair électrique", "damage": 14, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Éclaboussures électrifiées", "damage": 20, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Éclatement tellurique", "damage": 18, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Écrasement massif", "damage": 14, "type": "normal" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Écrasement de pierre", "damage": 14, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Éruption rocheuse", "damage": 11, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Explosion de flammes", "damage": 17, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Explosion électrique", "damage": 18, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Explosion incandescente", "damage": 18, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Explosion pyrotechnique", "damage": 13, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Fissure profonde", "damage": 11, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Flammeche", "damage": 16, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Fournaise", "damage": 14, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Foudre aveuglante", "damage": 11, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Fracas sismique", "damage": 13, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Frappe aérodynamique", "damage": 14, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Hurlement supersonique", "damage": 19, "type": "normal" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Hydrocanon", "damage": 17, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Inferno", "damage": 20, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Jet d'eau", "damage": 12, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Jet de roches", "damage": 12, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Lacération aquatique", "damage": 14, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Lame d'eau", "damage": 19, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Lance de stalactites", "damage": 13, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Lance de feu", "damage": 13, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Liane tranchante", "damage": 18, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Plongeon rapide", "damage": 19, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Pilonnage géant", "damage": 16, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Pluie de météorites", "damage": 12, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Rafale électrique", "damage": 11, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Rafale de feuille", "damage": 15, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json 
+
+{ "name": "Rafale de plumes", "damage": 15, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Racines envahissantes", "damage": 20, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Secousse tellurique", "damage": 17, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Sables mouvants", "damage": 15, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Spirale ascendante", "damage": 12, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Tempête de griffes", "damage": 17, "type": "normal" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Tempête statique", "damage": 13, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Tornade florale", "damage": 16, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Tornade", "damage": 13, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Tourbillon de gravier", "damage": 17, "type": "terre" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Tourbillon d'ailes", "damage": 16, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Tourbillon électrique", "damage": 14, "type": "electric" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Vague d'eau", "damage": 13, "type": "eau" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Vent cinglant", "damage": 16, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Volcanique", "damage": 16, "type": "feu" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Vortex de vent", "damage": 13, "type": "vol" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Vortex végétal", "damage": 14, "type": "plante" }
+
+### Add new attack (lancé)
+
+POST {{baseUrl}}/evoRumble/attacks
+Content-Type: application/json
+
+{ "name": "Électrochoc", "damage": 13, "type": "electric" }
