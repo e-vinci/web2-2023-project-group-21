@@ -87,6 +87,8 @@ const gameState = {
   activeMonsterPlayer: null,
   opponentActiveMonster: null,
   attacksAndDamages: [],
+  baseLifeListTeam1: [],
+  baseLifeListTeam2: [],
   baseLifeTeam1:0,
   baseLifeTeam2:0,
 };
@@ -125,6 +127,11 @@ async function creationParties() {
   gameState.activeMonsterPlayer = null;
   gameState.opponentActiveMonster = null;
   gameState.attacksAndDamages = [];
+  gameState.baseLifeListTeam1 = [];
+  gameState.baseLifeListTeam1 = [];
+  gameState.baseLifeTeam1 = 0;
+  gameState.baseLifeTeam2 = 0;
+
   try {
     const response = await fetch('/api/evoRumble');
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
@@ -143,6 +150,8 @@ async function creationParties() {
       const monstre2 = { ...monstres[randomIndex2] };
       gameState.firstPlayerTeam.push(monstre1);
       gameState.opponentTeam.push(monstre2);
+      gameState.baseLifeListTeam1.push(monstre1.pointsDeVie);
+      gameState.baseLifeListTeam2.push(monstre2.pointsDeVie);
     }
 
     [gameState.activeMonsterPlayer] = gameState.firstPlayerTeam;
@@ -177,11 +186,11 @@ function renderGameState() {
     renderGoBackHomeButton();
   } else {
     // eslint-disable-next-line no-unused-vars
-    const nomMonstre1 = gameState.activeMonsterPlayer.nom;
+    const nomMonstre1 = gameState.activeMonsterPlayer;
     // eslint-disable-next-line no-unused-vars
-    const nomMonstre2 = gameState.opponentActiveMonster.nom;
-    console.log(`EQ1: ${nomMonstre1}`);
-    console.log(`EQ2: ${nomMonstre2}`);
+    const nomMonstre2 = gameState.opponentActiveMonster;
+    console.log(`EQ1: ${nomMonstre1.nom}`);
+    console.log(`EQ2: ${nomMonstre2.nom}`);
     main.innerHTML = `<div class="container bg-white text-center mt-5">
 <div class="row">
   <div class="col gameWindow m-1 border bg-image" style="background-image: url(${background}); background-size: cover; background-position: center;">
@@ -189,7 +198,8 @@ function renderGameState() {
     <div id="opponent">
       <div id="info">
         <div id="nameOpponent">
-          ${nomMonstre2}
+          ${nomMonstre2.nom}
+          (${nomMonstre2.type})
         </div>
 
         <div id="opponentLifeBar">
@@ -202,7 +212,7 @@ function renderGameState() {
       </div>
 
       <div  id="monstre_2">
-        <img src="${dicoImg[nomMonstre2]}" class="img-fluid float-right">
+        <img src="${dicoImg[nomMonstre2.nom]}" class="img-fluid float-right">
       </div>
     </div>
 
@@ -210,12 +220,13 @@ function renderGameState() {
 
     <div id="player">
       <div id="monstre_1">
-            <img src="${dicoImg[nomMonstre1]}" class="img-fluid float-left">
+            <img src="${dicoImg[nomMonstre1.nom]}" class="img-fluid float-left">
       </div>
 
       <div id="info">
         <div id="namePlayer">
-          ${nomMonstre1}
+          ${nomMonstre1.nom}
+          (${nomMonstre1.type})
         </div>
         <div id="playerLifeBar">
           <div id="vieRempliePlayer"></div>
@@ -238,6 +249,8 @@ function renderGameState() {
     const perso1 = document.getElementById('monstre_1');
     const perso2 = document.getElementById('monstre_2');
 
+    console.log(`VIE DE BASE OP ${gameState.baseLifeTeam2}`);
+    console.log(`VIE DE BASE J ${gameState.baseLifeTeam1}`);
     mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.opponentActiveMonster.pointsDeVie, gameState.baseLifeTeam2), 1);
     mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.activeMonsterPlayer.pointsDeVie, gameState.baseLifeTeam1), 2);
     // animation du monstre de l'équipe 1
@@ -306,9 +319,12 @@ function renderGameState() {
           )} est mort</div>`;
           const index = gameState.opponentTeam.indexOf(gameState.opponentActiveMonster);
           gameState.opponentTeam.splice(index, 1); 
+          gameState.baseLifeListTeam2.splice(index, 1); 
 
           // problème quand liste vide
           [gameState.opponentActiveMonster] = gameState.opponentTeam;
+          // eslint-disable-next-line prefer-destructuring
+          gameState.baseLifeTeam2 = gameState.baseLifeListTeam2[0];
           console.log(gameState.opponentActiveMonster);
 
           // signifie qu'il n'y a plus de monstre dans l'équipe
@@ -326,7 +342,10 @@ function renderGameState() {
             )} est mort</div>`;
             const index = gameState.firstPlayerTeam.indexOf(gameState.activeMonsterPlayer);
             gameState.firstPlayerTeam.splice(index, 1);
+            gameState.baseLifeListTeam1.splice(index, 1); 
             [gameState.activeMonsterPlayer] = gameState.firstPlayerTeam;
+            // eslint-disable-next-line prefer-destructuring
+            gameState.baseLifeTeam1 = gameState.baseLifeListTeam1[0];
           }
         }
         clearPage();
@@ -344,6 +363,7 @@ function renderGameState() {
         monstre.innerHTML = `${gameState.firstPlayerTeam[i].nom}`;
         monstre.addEventListener('click', () => {
           gameState.activeMonsterPlayer = gameState.firstPlayerTeam[i];
+          gameState.baseLifeTeam1 = gameState.baseLifeListTeam1[i];
           historique.innerHTML += `<div class="text-success">EQUIPE 1: Le monstre ${JSON.stringify(
             gameState.activeMonsterPlayer.nom,
           )} est entré</div>`;
