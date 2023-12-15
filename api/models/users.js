@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  score: {
+    type: Number,
+    required: true,
+  },
 });
 
 // Create model
@@ -95,15 +99,12 @@ async function createOneUser(username, password) {
           useNewUrlParser: true,
           useUnifiedTopology: true,
         },
-      )
-      .then(() => console.log('MongoDB connected'))
-      .catch((err) => console.log(err));
-
+      );
     await UsersModel.create({
       username,
       password: hashedPassword,
-    }).then((user) => console.log('Creation user succesfull :', user));
-
+      score: 0,
+    });
     // Disconnect of the database
   } catch (err) {
     console.error('Erreur lors de la création du joueur :', err);
@@ -116,4 +117,5 @@ async function createOneUser(username, password) {
 module.exports = {
   login,
   register,
+  UsersModel,
 };

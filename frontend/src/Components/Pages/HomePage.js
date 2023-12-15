@@ -2,7 +2,7 @@ import Navigate from '../Router/Navigate';
 
 async function getLeaderboard() {
   try {
-    const response = await fetch('/api/leaderboard');
+    const response = await fetch('/api/score/leaderboard');
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
     const data = await response.json();
@@ -44,7 +44,7 @@ const HomePage = async () => {
     const leaderboardHTML = document.querySelector('#leaderboard');
     leaderboardHTML.innerHTML = ''; // Clear existing content
     leaderboard.forEach((player) => {
-      leaderboardHTML.innerHTML += `<li>${player.pseudo} - ${player.score}</li>`;
+      leaderboardHTML.innerHTML += `<li> ${player.username} - ${player.score} points</li>`;
     });
 
   } catch (error) {

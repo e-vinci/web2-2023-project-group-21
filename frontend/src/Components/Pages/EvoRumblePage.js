@@ -42,6 +42,7 @@ import libeoh from '../../img/evoMonsters/VOL/Libeoh.png';
 import background from '../../img/background.png';
 import Navigate from '../Router/Navigate';
 import { clearPage } from '../../utils/render';
+import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 
 const dicoImg = {
   Adraqua: adraqua,
@@ -89,13 +90,14 @@ const gameState = {
   attacksAndDamages: [],
   baseLifeListTeam1: [],
   baseLifeListTeam2: [],
-  baseLifeTeam1:0,
-  baseLifeTeam2:0,
+  baseLifeTeam1: 0,
+  baseLifeTeam2: 0,
 };
 const NewPage = () => {
   clearPage();
   creationParties();
 };
+const authenticatedUser = getAuthenticatedUser();
 
 function renderGoBackHomeButton() {
   const main = document.querySelector('main');
@@ -120,6 +122,8 @@ function renderGoBackHomeButton() {
 
 // historique des attaques lancées et des monstres morts
 const historique = document.createElement('div');
+let totalHpBotsMonster = 0;
+let totalHpPlayerMonster = 0;
 
 async function creationParties() {
   gameState.firstPlayerTeam = [];
@@ -152,6 +156,8 @@ async function creationParties() {
       gameState.opponentTeam.push(monstre2);
       gameState.baseLifeListTeam1.push(monstre1.pointsDeVie);
       gameState.baseLifeListTeam2.push(monstre2.pointsDeVie);
+      totalHpPlayerMonster += monstre1.pointsDeVie;
+      totalHpBotsMonster += monstre2.pointsDeVie;
     }
 
     [gameState.activeMonsterPlayer] = gameState.firstPlayerTeam;
@@ -178,11 +184,72 @@ function getDamage(attackName) {
   return attackDamage;
 }
 
-function renderGameState() {
+async function getUserScore() {
+  try {
+    const response = await fetch(
+      `/api/score/getScore?username=${encodeURIComponent(authenticatedUser?.username)}`,
+    );
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.error('getLeaderboard::error: ', err);
+    throw err;
+  }
+}
+
+async function updateUserScore(username, score) {
+  console.log(`oue oue oue ${username} ${score}`);
+  try {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ username, score }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const response = await fetch(`/api/score/updateScore`, options);
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.error('getLeaderboard::error: ', err);
+    throw err;
+  }
+}
+
+async function renderGameState() {
+  let userScore;
   const main = document.querySelector('main');
   // si l'une des équipes n'a plus de monstres => fin de partie
   if (gameState.opponentTeam.length === 0 || gameState.firstPlayerTeam.length === 0) {
-    main.innerHTML = `La partie est terminée<br>`;
+    let gameOutcomeMessage = '';
+    let scoreModifier = 0;
+
+    if (gameState.opponentTeam.length === 0) {
+      console.log('tu as gagné');
+      gameOutcomeMessage = 'La partie est terminée (tu as gagné)<br>';
+      scoreModifier = 1; // Use 1 for the winning case
+    } else {
+      console.log('tu as perdu');
+      gameOutcomeMessage = 'La partie est terminée (tu as perdu)<br>';
+      scoreModifier = -1; // Use -1 for the losing case
+    }
+
+    if (isAuthenticated) {
+      userScore = await getUserScore();
+    }
+
+    userScore +=
+      Math.floor(Math.ceil(10 * (totalHpBotsMonster / totalHpPlayerMonster))) * scoreModifier;
+    updateUserScore(authenticatedUser?.username, userScore);
+
+    main.innerHTML = gameOutcomeMessage;
     renderGoBackHomeButton();
   } else {
     // eslint-disable-next-line no-unused-vars
@@ -251,8 +318,14 @@ function renderGameState() {
 
     console.log(`VIE DE BASE OP ${gameState.baseLifeTeam2}`);
     console.log(`VIE DE BASE J ${gameState.baseLifeTeam1}`);
-    mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.opponentActiveMonster.pointsDeVie, gameState.baseLifeTeam2), 1);
-    mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.activeMonsterPlayer.pointsDeVie, gameState.baseLifeTeam1), 2);
+    mettreAJourBarreDeVie(
+      getPourcentageLifeLeft(gameState.opponentActiveMonster.pointsDeVie, gameState.baseLifeTeam2),
+      1,
+    );
+    mettreAJourBarreDeVie(
+      getPourcentageLifeLeft(gameState.activeMonsterPlayer.pointsDeVie, gameState.baseLifeTeam1),
+      2,
+    );
     // animation du monstre de l'équipe 1
     anime({
       targets: perso1,
@@ -276,7 +349,6 @@ function renderGameState() {
     });
 
     document.querySelector('.history').appendChild(historique);
-    
 
     // création des boutons pour qu'un joueur puisse attaquer en fonction de son pokémon
     const divAttack = document.createElement('div');
@@ -310,16 +382,21 @@ function renderGameState() {
             break;
         }
 
-        mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.opponentActiveMonster.pointsDeVie, gameState.baseLifeTeam2), 1);
-      
+        mettreAJourBarreDeVie(
+          getPourcentageLifeLeft(
+            gameState.opponentActiveMonster.pointsDeVie,
+            gameState.baseLifeTeam2,
+          ),
+          1,
+        );
 
         if (gameState.opponentActiveMonster.pointsDeVie <= 0) {
           historique.innerHTML += `<div class="text-danger">EQUIPE 2: Le monstre ${JSON.stringify(
             gameState.opponentActiveMonster.nom,
           )} est mort</div>`;
           const index = gameState.opponentTeam.indexOf(gameState.opponentActiveMonster);
-          gameState.opponentTeam.splice(index, 1); 
-          gameState.baseLifeListTeam2.splice(index, 1); 
+          gameState.opponentTeam.splice(index, 1);
+          gameState.baseLifeListTeam2.splice(index, 1);
 
           // problème quand liste vide
           [gameState.opponentActiveMonster] = gameState.opponentTeam;
@@ -328,21 +405,26 @@ function renderGameState() {
           console.log(gameState.opponentActiveMonster);
 
           // signifie qu'il n'y a plus de monstre dans l'équipe
-          if (gameState.opponentActiveMonster !== undefined){
+          if (gameState.opponentActiveMonster !== undefined) {
             gameState.baseLifeTeam2 = gameState.opponentActiveMonster.pointsDeVie;
           }
-          
         } else {
           playOrdi();
-          
-          mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.activeMonsterPlayer.pointsDeVie, gameState.baseLifeTeam1), 2);
+
+          mettreAJourBarreDeVie(
+            getPourcentageLifeLeft(
+              gameState.activeMonsterPlayer.pointsDeVie,
+              gameState.baseLifeTeam1,
+            ),
+            2,
+          );
           if (gameState.activeMonsterPlayer.pointsDeVie <= 0) {
             historique.innerHTML += `<div class="text-danger">EQUIPE 1: Le monstre ${JSON.stringify(
               gameState.activeMonsterPlayer.nom,
             )} est mort</div>`;
             const index = gameState.firstPlayerTeam.indexOf(gameState.activeMonsterPlayer);
             gameState.firstPlayerTeam.splice(index, 1);
-            gameState.baseLifeListTeam1.splice(index, 1); 
+            gameState.baseLifeListTeam1.splice(index, 1);
             [gameState.activeMonsterPlayer] = gameState.firstPlayerTeam;
             // eslint-disable-next-line prefer-destructuring
             gameState.baseLifeTeam1 = gameState.baseLifeListTeam1[0];
@@ -377,7 +459,7 @@ function renderGameState() {
         document.querySelector('.atkButtons').appendChild(monstre);
       }
     }
-    
+
     const rageQuit = document.createElement('button');
     rageQuit.innerHTML = `Déclarer forfait`;
     rageQuit.className = `bg-danger btn btn-info m-1 mt-5`;
@@ -421,29 +503,24 @@ function mettreAJourBarreDeVie(pourcentage, numberPlayer) {
   const barreDeVieRempliePlayer = document.getElementById('vieRempliePlayer');
 
   // si le coup à été joué par l'utilisateur
-  if (numberPlayer === 1){
+  if (numberPlayer === 1) {
     barreDeVieRemplieOpponent.style.width = `${pourcentage}%`;
-  }
-
-  else{
+  } else {
     barreDeVieRempliePlayer.style.width = `${pourcentage}%`;
   }
-  
 }
 
-
-function getPourcentageLifeLeft(lifeLeft, baseLife){
-  return Math.round((lifeLeft/baseLife)*100);
+function getPourcentageLifeLeft(lifeLeft, baseLife) {
+  return Math.round((lifeLeft / baseLife) * 100);
 }
 
 // eslint-disable-next-line no-unused-vars
-function getHtmlNbMonster(number){
+function getHtmlNbMonster(number) {
   let strHtml = '<div>';
-  for (let i = 0; i < number; i+=1) {
-    strHtml += `<img src="${ball}">`
+  for (let i = 0; i < number; i += 1) {
+    strHtml += `<img src="${ball}">`;
   }
   return `${strHtml}</div>`;
 }
-
 
 export default NewPage;
