@@ -10,7 +10,7 @@ const corsOptions = {
 const pizzaRouter = require('./routes/pizzas');
 const authsRouter = require('./routes/auths');
 const evoRumbleRouter = require('./routes/evoRumble');
-const leaderboardRouter = require('./routes/leaderboard');
+const scoreRouter = require('./routes/scores');
 
 const app = express();
 
@@ -24,6 +24,6 @@ app.use(cors(corsOptions));
 app.use('/pizzas', pizzaRouter);
 app.use('/auths', authsRouter);
 app.use('/evoRumble', cors(corsOptions), evoRumbleRouter);
-app.use('/leaderboard', leaderboardRouter);
+app.use('/score', scoreRouter);
 
 module.exports = app;

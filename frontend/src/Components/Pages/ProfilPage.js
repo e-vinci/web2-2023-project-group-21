@@ -1,9 +1,44 @@
 import imgAvatar from '../../img/exemple_avatar.png';
 import aaronSprite from '../../img/aaronSprite.png';
 import traineers from '../../img/traineers.png';
+import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 
 const main = document.querySelector('main');
 let imgAvatarCurrently = imgAvatar;
+const authenticatedUser = getAuthenticatedUser();
+const leaderboard = await getLeaderboard();
+async function getLeaderboard() {
+  try {
+    const response = await fetch('/api/score/leaderboard');
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const data = await response.json();
+    return data;
+
+  } catch (err) {
+    console.error('getLeaderboard::error: ', err);
+    throw err;
+  }
+}
+let userScore;
+if(isAuthenticated){
+  userScore = await getUserScore();
+}
+async function getUserScore() {
+  try {
+    const response = await fetch(`/api/score/getScore?username=${encodeURIComponent(authenticatedUser?.username)}`);
+    console.log(authenticatedUser?.username)
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const data = await response.json();
+    console.log(data)
+    return data;
+
+  } catch (err) {
+    console.error('getLeaderboard::error: ', err);
+    throw err;
+  }
+}
 
 
 const ProfilPage = () => {
@@ -11,9 +46,9 @@ const ProfilPage = () => {
                         <div class="card text-center mx-auto" style="width: 18rem;">
                             <img id="imgProfil" class="card-img-top h-200 w-100" src="${imgAvatarCurrently}" alt="Card image cap">
                             <div class="card-body">
-                                <p class="card-text" id="pseudo">Pseudo du joueur qu'il faudra remplacer</p>
-                                <p class="card-text" id="score">Score du joueur qu'il faudra remplacer</p>
-                                <p class="card-text" id="rank">Classement du joueur qu'il faudra remplacer</p>
+                                <p class="card-text" id="pseudo"></p>
+                                <p class="card-text" id="score"></p>
+                                <p class="card-text" id="rank"></p>
                             </div>
                         </div>
                     </div>`;
@@ -30,9 +65,9 @@ const ProfilPage = () => {
   const score = main.querySelector('#score');
   const rank = main.querySelector('#rank');
 
-  pseudo.innerText = 'PSEUDO N°1';
-  score.innerText = 'SCORE N°1';
-  rank.innerText = 'CLASSEMENT N°1';
+  pseudo.innerText = authenticatedUser?.username;
+  score.innerText = `Score : ${userScore} points`;
+  rank.innerText = `Rank : #${leaderboard.findIndex(user => user.username === authenticatedUser?.username)+1}`;
 };
 
 
