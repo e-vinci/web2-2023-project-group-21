@@ -325,7 +325,7 @@ function monsterButtonCreation() {
         document.querySelector('#monstre_2').innerHTML = `<img src="${
           dicoImg[gameState.activeMonsterPlayer.nom]
         }" class="img-fluid float-right">`;
-        playOrdi();
+        opponentPlay();
         clearPage();
         renderGameState();
       });
@@ -481,30 +481,24 @@ function getDamage(attackName) {
   return attackDamage;
 }
 
-
-function playOrdi() {
+function opponentPlay() {
   const randomAtkIndex = Math.floor(Math.random() * 4);
   let atkOrdi = gameState.opponentActiveMonster.attaques[randomAtkIndex];
   atkOrdi = getDamage(atkOrdi);
   const nbDegatsOrdi = atkOrdi.damage;
+  let multiplicateur;
+
   switch (true) {
     case gameState.activeMonsterPlayer.faiblesses.includes(atkOrdi.type):
-      historique.innerHTML += `Le joueur 2 a joué ${
-        atkOrdi.name
-      } pour une valeur de ${nbDegatsOrdi * 2} pv<br>`;
-      gameState.activeMonsterPlayer.pointsDeVie -= nbDegatsOrdi * 2;
+      multiplicateur = 2;
       break;
 
     case gameState.activeMonsterPlayer.resistances.includes(atkOrdi.type):
-      historique.innerHTML += `Le joueur 2 a joué ${
-        atkOrdi.name
-      } pour une valeur de ${nbDegatsOrdi / 2} pv<br>`;
-      gameState.activeMonsterPlayer.pointsDeVie -= nbDegatsOrdi / 2;
+      multiplicateur = 0.5;
       break;
 
     default:
-      historique.innerHTML += `Le joueur 2 a joué ${atkOrdi.name} pour une valeur de ${nbDegatsOrdi} pv<br>`;
-      gameState.activeMonsterPlayer.pointsDeVie -= nbDegatsOrdi;
+      multiplicateur = 1;
       break;
   }
 

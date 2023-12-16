@@ -2,11 +2,21 @@ import imgAvatar from '../../img/exemple_avatar.png';
 import aaronSprite from '../../img/aaronSprite.png';
 import traineers from '../../img/traineers.png';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
+import Navigate from '../Router/Navigate';
 
 const main = document.querySelector('main');
 let imgAvatarCurrently = imgAvatar;
 const authenticatedUser = getAuthenticatedUser();
 const leaderboard = await getLeaderboard();
+
+const ProfilPage = () =>{
+    if (isAuthenticated) {
+        renderProfil(); 
+      } else {
+        Navigate('/login');
+      }
+}
+
 async function getLeaderboard() {
   try {
     const response = await fetch('/api/score/leaderboard');
@@ -14,34 +24,32 @@ async function getLeaderboard() {
 
     const data = await response.json();
     return data;
-
   } catch (err) {
     console.error('getLeaderboard::error: ', err);
     throw err;
   }
 }
 let userScore;
+
 if(isAuthenticated){
-  userScore = await getUserScore();
+    userScore = getUserScore
 }
 async function getUserScore() {
   try {
-    const response = await fetch(`/api/score/getScore?username=${encodeURIComponent(authenticatedUser?.username)}`);
-    console.log(authenticatedUser?.username)
+    const response = await fetch(`/api/score/getScore?username=${authenticatedUser?.username}`);
+    console.log(authenticatedUser?.username);
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
     const data = await response.json();
-    console.log(data)
+    console.log(data);
     return data;
-
   } catch (err) {
-    console.error('getLeaderboard::error: ', err);
+    console.error('getUserScore::error: ', err);
     throw err;
   }
 }
 
-
-const ProfilPage = () => {
+function renderProfil() {
   main.innerHTML = `<div id="divPrincipal" class="container mt-5">
                         <div class="card text-center mx-auto" style="width: 18rem;">
                             <img id="imgProfil" class="card-img-top h-200 w-100" src="${imgAvatarCurrently}" alt="Card image cap">
@@ -56,7 +64,7 @@ const ProfilPage = () => {
   const submit = document.createElement('button');
   submit.className = 'rounded';
   submit.innerText = 'Modifier son avatar';
-  submit.addEventListener('click', () => {  
+  submit.addEventListener('click', () => {
     submit.remove();
     selectAvatar();
   });
@@ -67,10 +75,10 @@ const ProfilPage = () => {
 
   pseudo.innerText = authenticatedUser?.username;
   score.innerText = `Score : ${userScore} points`;
-  rank.innerText = `Rank : #${leaderboard.findIndex(user => user.username === authenticatedUser?.username)+1}`;
-};
-
-
+  rank.innerText = `Rank : #${leaderboard.findIndex(
+    (user) => user.username === authenticatedUser?.username,
+  ) + 1}`;
+}
 
 let selectedAvatarSource = null;
 
@@ -122,11 +130,11 @@ function handleAvatarClick(event) {
     // Réinitialisez la bordure pour toutes les images
     const allAvatarImages = document.querySelectorAll('.avatar-container img');
     // eslint-disable-next-line no-return-assign, no-param-reassign
-    allAvatarImages.forEach(img => img.style.border = 'none');
+    allAvatarImages.forEach((img) => (img.style.border = 'none'));
 
     // Mettez à jour la source de l'image sélectionnée
     selectedAvatarSource = event.target.getAttribute('data-src');
-    
+
     // Ajoutez une bordure à l'image sélectionnée
     // eslint-disable-next-line no-param-reassign
     event.target.style.border = '2px solid blue';
@@ -139,8 +147,5 @@ function handleValidation() {
     ProfilPage();
   }
 }
-
-
-
 
 export default ProfilPage;
