@@ -1,7 +1,7 @@
 ######### NORMAL OPERATION  ###########
 
 ### Read all users
-GET http://localhost:3000/evoRumble
+GET http://evorumble-api.azurewebsites.net/evoRumble
 
 ### Read all pizzas with File variable
 @baseUrl = http://localhost:3000

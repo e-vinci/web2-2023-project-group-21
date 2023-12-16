@@ -107,6 +107,7 @@ function renderGoBackHomeButton() {
     clearPage();
     Navigate('/');
   });
+
   const rematch = document.createElement('input');
   rematch.value = 'Rematch';
   rematch.className = 'btn btn-success mt-3 mx-2';
@@ -142,7 +143,7 @@ async function creationParties() {
     gameState.attacksAndDamages = monsterAndAttack.allAttacks;
 
     // création des équipes avec des monstres au hasard
-    // essayer de faire ne sorte qu'il n'y ai que des monstres différents
+    // essayer de faire ne sorte qu'il n'y ai que des monstres différents ?
     for (let i = 0; i < nbMonstresParEquipe; i += 1) {
       const randomIndex1 = Math.floor(Math.random() * monstres.length);
       const randomIndex2 = Math.floor(Math.random() * monstres.length);
@@ -162,7 +163,7 @@ async function creationParties() {
     // historique remis à zero
     historique.id = 'hist';
     historique.innerHTML =
-      '<div class="text-decoration-underline">Historique des attaques éffectuées:</div>';
+      `<div id='hist_title'>Historique des attaques éffectuées:</div>`;
     renderGameState();
   } catch (err) {
     console.error('showAllMonsters::error: ', err);
@@ -182,15 +183,15 @@ function renderGameState() {
   const main = document.querySelector('main');
   // si l'une des équipes n'a plus de monstres => fin de partie
   if (gameState.opponentTeam.length === 0 || gameState.firstPlayerTeam.length === 0) {
-    main.innerHTML = `La partie est terminée<br>`;
     renderGoBackHomeButton();
   } else {
+    const indexMonster = gameState.firstPlayerTeam.findIndex((monstre) => monstre.nom === gameState.activeMonsterPlayer.nom);
     // eslint-disable-next-line no-unused-vars
-    const nomMonstre1 = gameState.activeMonsterPlayer;
+    const playerMonster = gameState.activeMonsterPlayer;
     // eslint-disable-next-line no-unused-vars
-    const nomMonstre2 = gameState.opponentActiveMonster;
-    console.log(`EQ1: ${nomMonstre1.nom}`);
-    console.log(`EQ2: ${nomMonstre2.nom}`);
+    const opponentMonster = gameState.opponentActiveMonster;
+    console.log(`EQ1: ${playerMonster.nom}`);
+    console.log(`EQ2: ${opponentMonster.nom}`);
     main.innerHTML = `<div class="container bg-white text-center mt-5">
 <div class="row">
   <div class="col gameWindow m-1 border bg-image" style="background-image: url(${background}); background-size: cover; background-position: center;">
@@ -198,8 +199,9 @@ function renderGameState() {
     <div id="opponent">
       <div id="info">
         <div id="nameOpponent">
-          ${nomMonstre2.nom}
-          (${nomMonstre2.type})
+          ${opponentMonster.nom}
+          (${opponentMonster.type})
+          PV: ${opponentMonster.pointsDeVie}/${gameState.baseLifeListTeam2[0]}
         </div>
 
         <div id="opponentLifeBar">
@@ -211,22 +213,23 @@ function renderGameState() {
 
       </div>
 
-      <div  id="monstre_2">
-        <img src="${dicoImg[nomMonstre2.nom]}" class="img-fluid float-right">
+      <div  id="monstre_oppopnent">
+        <img src="${dicoImg[opponentMonster.nom]}" class="img-fluid float-right">
       </div>
     </div>
 
     <div id="spacebetween"></div>
 
     <div id="player">
-      <div id="monstre_1">
-            <img src="${dicoImg[nomMonstre1.nom]}" class="img-fluid float-left">
+      <div id="monstre_player">
+            <img src="${dicoImg[playerMonster.nom]}" class="img-fluid float-left img_player">
       </div>
 
       <div id="info">
         <div id="namePlayer">
-          ${nomMonstre1.nom}
-          (${nomMonstre1.type})
+          ${playerMonster.nom}
+          (${playerMonster.type})
+          PV: ${playerMonster.pointsDeVie}/${gameState.baseLifeListTeam1[indexMonster]}
         </div>
         <div id="playerLifeBar">
           <div id="vieRempliePlayer"></div>
@@ -241,18 +244,16 @@ function renderGameState() {
 
   <div class="col  history m-1 border"></div>
   <div class="w-100"></div>
-  <div class="col atkButtons m-1 border"></div>
+  <div class="atkButtons m-1 border"></div>
   <div class="col quitButton m-1 border"></div>
 </div>
 </div>`;
 
-    const perso1 = document.getElementById('monstre_1');
-    const perso2 = document.getElementById('monstre_2');
+    const perso1 = document.getElementById('monstre_player');
+    const perso2 = document.getElementById('monstre_oppopnent');
 
-    console.log(`VIE DE BASE OP ${gameState.baseLifeTeam2}`);
-    console.log(`VIE DE BASE J ${gameState.baseLifeTeam1}`);
-    mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.opponentActiveMonster.pointsDeVie, gameState.baseLifeTeam2), 1);
-    mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.activeMonsterPlayer.pointsDeVie, gameState.baseLifeTeam1), 2);
+    updateLifeBar(getPourcentageLifeLeft(gameState.opponentActiveMonster.pointsDeVie, gameState.baseLifeTeam2), 1);
+    updateLifeBar(getPourcentageLifeLeft(gameState.activeMonsterPlayer.pointsDeVie, gameState.baseLifeTeam1), 2);
     // animation du monstre de l'équipe 1
     anime({
       targets: perso1,
@@ -260,7 +261,7 @@ function renderGameState() {
         { value: '-10px', duration: 1500, easing: 'easeInOutQuad' }, // Déplacement vers le haut
         { value: '0px', duration: 1500, easing: 'easeInOutQuad' }, // Retour vers le bas
       ],
-      easing: 'linear', // Utiliser 'linear' pour un mouvement fluide
+      easing: 'linear',
       loop: true,
     });
 
@@ -271,7 +272,7 @@ function renderGameState() {
         { value: '-10px', duration: 1400, easing: 'easeInOutQuad' }, // Déplacement vers le haut
         { value: '0px', duration: 1400, easing: 'easeInOutQuad' }, // Retour vers le bas
       ],
-      easing: 'linear', // Utiliser 'linear' pour un mouvement fluide
+      easing: 'linear',
       loop: true,
     });
 
@@ -288,29 +289,28 @@ function renderGameState() {
       atk.innerHTML = `<div class="nom">${attackName} </div><div class="damage">${atkProperties.damage} damage </div><div class="type"> (${atkProperties.type})</div>`;
       atk.addEventListener('click', (e) => {
         const nbDegats = atkProperties.damage;
+        let multiplicateur;
 
         const nom = e.currentTarget.querySelector('.nom').innerHTML;
 
         switch (true) {
           case gameState.opponentActiveMonster.faiblesses.includes(atkProperties.type):
-            historique.innerHTML += `Le joueur 1 a joué ${nom} pour une valeur de ${nbDegats *
-              2} pv<br>`;
-            gameState.opponentActiveMonster.pointsDeVie -= nbDegats * 2;
+            multiplicateur = 2;
             break;
 
           case gameState.opponentActiveMonster.resistances.includes(atkProperties.type):
-            historique.innerHTML += `Le joueur 1 a joué ${nom} pour une valeur de ${nbDegats /
-              2} pv<br>`;
-            gameState.opponentActiveMonster.pointsDeVie -= nbDegats / 2;
+            multiplicateur = 0.5;
             break;
 
           default:
-            historique.innerHTML += `Le joueur 1 a joué ${nom} pour une valeur de ${nbDegats} pv<br>`;
-            gameState.opponentActiveMonster.pointsDeVie -= nbDegats;
+            multiplicateur = 1;
             break;
         }
 
-        mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.opponentActiveMonster.pointsDeVie, gameState.baseLifeTeam2), 1);
+        historique.innerHTML += `Le joueur 1 a joué ${nom} pour une valeur de ${nbDegats} pv<br>`;
+        gameState.opponentActiveMonster.pointsDeVie -= (nbDegats*multiplicateur);
+
+        updateLifeBar(getPourcentageLifeLeft(gameState.opponentActiveMonster.pointsDeVie, gameState.baseLifeTeam2), 1);
       
 
         if (gameState.opponentActiveMonster.pointsDeVie <= 0) {
@@ -321,21 +321,20 @@ function renderGameState() {
           gameState.opponentTeam.splice(index, 1); 
           gameState.baseLifeListTeam2.splice(index, 1); 
 
-          // problème quand liste vide
           [gameState.opponentActiveMonster] = gameState.opponentTeam;
+
           // eslint-disable-next-line prefer-destructuring
           gameState.baseLifeTeam2 = gameState.baseLifeListTeam2[0];
-          console.log(gameState.opponentActiveMonster);
 
-          // signifie qu'il n'y a plus de monstre dans l'équipe
+          // signifie qu'il y a un monstre dans l'équipe
           if (gameState.opponentActiveMonster !== undefined){
             gameState.baseLifeTeam2 = gameState.opponentActiveMonster.pointsDeVie;
           }
           
         } else {
-          playOrdi();
+          opponentPlay();
           
-          mettreAJourBarreDeVie(getPourcentageLifeLeft(gameState.activeMonsterPlayer.pointsDeVie, gameState.baseLifeTeam1), 2);
+          updateLifeBar(getPourcentageLifeLeft(gameState.activeMonsterPlayer.pointsDeVie, gameState.baseLifeTeam1), 2);
           if (gameState.activeMonsterPlayer.pointsDeVie <= 0) {
             historique.innerHTML += `<div class="text-danger">EQUIPE 1: Le monstre ${JSON.stringify(
               gameState.activeMonsterPlayer.nom,
@@ -355,22 +354,27 @@ function renderGameState() {
       document.querySelector('.atkButtons').appendChild(divAttack);
     }
 
+    // document.querySelector('.atkButtons').innerHTML += 'Choisissez un autre monstre à faire renter en jeu:'
     // crétaion des boutons pour permettre de changer parmis les monstres restants
     for (let i = 0; i < gameState.firstPlayerTeam.length; i += 1) {
       if (gameState.firstPlayerTeam[i] !== gameState.activeMonsterPlayer) {
         const monstre = document.createElement('button');
-        monstre.className = 'btn btn-info m-1';
-        monstre.innerHTML = `${gameState.firstPlayerTeam[i].nom}`;
+        const currentMonster = gameState.firstPlayerTeam[i];
+
+        monstre.className = 'btn m-1';
+        monstre.id = `btn-${currentMonster.type}`;
+        monstre.innerHTML = `<div>Nom: ${currentMonster.nom}</div><div>PV: ${currentMonster.pointsDeVie}/${gameState.baseLifeListTeam1[i]}</div>`;
+
         monstre.addEventListener('click', () => {
           gameState.activeMonsterPlayer = gameState.firstPlayerTeam[i];
           gameState.baseLifeTeam1 = gameState.baseLifeListTeam1[i];
           historique.innerHTML += `<div class="text-success">EQUIPE 1: Le monstre ${JSON.stringify(
             gameState.activeMonsterPlayer.nom,
           )} est entré</div>`;
-          document.querySelector('#monstre_2').innerHTML = `<img src="${
+          document.querySelector('#monstre_player').innerHTML = `<img src="${
             dicoImg[gameState.activeMonsterPlayer.nom]
           }" class="img-fluid float-right">`;
-          playOrdi();
+          opponentPlay();
           clearPage();
           renderGameState();
         });
@@ -387,36 +391,36 @@ function renderGameState() {
     document.querySelector('.quitButton').appendChild(rageQuit);
     // document.querySelector('.quitButton').innerHTML += getHtmlNbMonster(4);
   }
-
-  function playOrdi() {
-    const randomAtkIndex = Math.floor(Math.random() * 4);
-    let atkOrdi = gameState.opponentActiveMonster.attaques[randomAtkIndex];
-    atkOrdi = getDamage(atkOrdi);
-    const nbDegatsOrdi = atkOrdi.damage;
-    switch (true) {
-      case gameState.activeMonsterPlayer.faiblesses.includes(atkOrdi.type):
-        historique.innerHTML += `Le joueur 2 a joué ${
-          atkOrdi.name
-        } pour une valeur de ${nbDegatsOrdi * 2} pv<br>`;
-        gameState.activeMonsterPlayer.pointsDeVie -= nbDegatsOrdi * 2;
-        break;
-
-      case gameState.activeMonsterPlayer.resistances.includes(atkOrdi.type):
-        historique.innerHTML += `Le joueur 2 a joué ${
-          atkOrdi.name
-        } pour une valeur de ${nbDegatsOrdi / 2} pv<br>`;
-        gameState.activeMonsterPlayer.pointsDeVie -= nbDegatsOrdi / 2;
-        break;
-
-      default:
-        historique.innerHTML += `Le joueur 2 a joué ${atkOrdi.name} pour une valeur de ${nbDegatsOrdi} pv<br>`;
-        gameState.activeMonsterPlayer.pointsDeVie -= nbDegatsOrdi;
-        break;
-    }
-  }
 }
 
-function mettreAJourBarreDeVie(pourcentage, numberPlayer) {
+
+function opponentPlay() {
+  const randomAtkIndex = Math.floor(Math.random() * 4);
+  let atkOrdi = gameState.opponentActiveMonster.attaques[randomAtkIndex];
+  atkOrdi = getDamage(atkOrdi);
+  const nbDegatsOrdi = atkOrdi.damage;
+  let multiplicateur;
+
+  switch (true) {
+    case gameState.activeMonsterPlayer.faiblesses.includes(atkOrdi.type):
+      multiplicateur = 2;
+      break;
+
+    case gameState.activeMonsterPlayer.resistances.includes(atkOrdi.type):
+      multiplicateur = 0.5;
+      break;
+
+    default:
+      multiplicateur = 1;
+      break;
+  }
+
+  historique.innerHTML += `<div>Le joueur 2 a joué ${atkOrdi.name} pour une valeur de ${nbDegatsOrdi*multiplicateur} pv</div><br>`;
+  gameState.activeMonsterPlayer.pointsDeVie -= (nbDegatsOrdi*multiplicateur);
+}
+
+
+function updateLifeBar(pourcentage, numberPlayer) {
   const barreDeVieRemplieOpponent = document.getElementById('vieRemplieOpponent');
   const barreDeVieRempliePlayer = document.getElementById('vieRempliePlayer');
 

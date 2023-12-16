@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-import { isAuthenticated, getAuthenticatedUser} from '../../utils/auths' 
+import { isAuthenticated, getAuthenticatedUser} from '../../utils/auths';
+import logo from '../../img/LogoJS.png';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -23,7 +24,9 @@ const Navbar = () => {
           </div>
           <div class="nav-item col-4 text-center" id="divCentre">
             <div class="nav-item p-2">
-              <a class="nav-link" href="#" data-uri="/">EvoRumbleLOGO</a>
+              <a class="nav-link" href="#" data-uri="/">
+                <img src="${logo}" alt="Logo EvoRumble">
+              </a>
             </div>
           </div>
           <div class="nav-item col-4 d-flex justify-content-end" id="divDroite">
