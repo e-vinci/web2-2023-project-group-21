@@ -1,0 +1,16 @@
+######### NORMAL OPERATION  ###########
+
+### get leaderboard
+GET http://localhost:3000/score/leaderboard
+
+### get score
+GET http://localhost:3000/score/getScore?username=test21
+
+### update score
+POST http://localhost:3000/score/updateScore
+Content-Type: application/json
+
+{
+    "username" : "oue",
+    "score" : 999 
+}

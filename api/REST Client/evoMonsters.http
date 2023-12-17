@@ -1,0 +1,6 @@
+######### NORMAL OPERATION  ###########
+
+@baseUrl = http://localhost:3000
+
+### Read all monsters and attacks
+GET {{baseUrl}}/evoRumble

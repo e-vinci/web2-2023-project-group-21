@@ -1,5 +1,6 @@
 const clearPage = () => {
   const main = document.querySelector('main');
+  main.className ='';
   main.innerHTML = '';
 };
 

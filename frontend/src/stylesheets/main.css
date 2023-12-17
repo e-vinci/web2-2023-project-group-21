@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.computer_mode {
+    position: absolute;
+    top: 30%; 
+    left: 10%; 
+    transform: translateY(-50%);
+}
+
+.one_mode {
+    position: absolute;
+    top: 30%; 
+    right: 10%; 
+    transform: translateY(-50%);
+}
+
+.the_link {
+    padding: 25px 30px;
+    font-size: 14px;
+    color: #000000;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    margin-right: 50px;
+}
+
+.the_link:hover {
+    background: #000000;
+    color: #050801;
+}
+
+.the_link span {
+    position: absolute;
+    display: block;
+    background: linear-gradient(90deg, transparent, #000000);
+    width: 100%;
+    height: 2px;
+}
+
+.the_link span:nth-child(1) {
+    top: 0;
+    left: 0;
+    animation: animate1 1s linear infinite;
+}
+
+
+.the_link span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px; height: 100%;
+    animation: animate2 1s linear infinite;
+    animation-delay: 0.25s;
+}
+
+.the_link span:nth-child(3) {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    animation: animate3 1s linear infinite;
+    animation-delay: 0.50s;
+}
+
+.the_link span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    animation: animate4 1s linear infinite;
+    animation-delay: 0.75s;
+}
+
+@keyframes animate1 {
+    0%, 100% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+}
+
+@keyframes animate2 {
+    0%, 100% {
+        top: -100%;
+    }
+    50%, 100% {
+        top: 100%;
+    }
+}
+
+@keyframes animate3 {
+    0%, 100% {
+        right: -100%;
+    }
+    50%, 100% {
+        right: 100%;
+    }
+}
+
+@keyframes animate4 {
+    0%, 100% {
+        bottom: -100%;
+    }
+    50%, 100% {
+        bottom: 100%;
+    }
+}
+
+
+.traineers {
+    height: 25%;
+    position: absolute; 
+    top: 29%; 
+    left: 77.5%; 
+    transform: translateX(-50%); 
+    margin-top: 90px; 
+}
+
+.aaronTrainer{
+    height: 25%;
+    position: absolute; 
+    top: 29%; 
+    right: 65.5%; 
+    transform: translateX(-50%); 
+    margin-top: 90px; 
+}
+
+.btnAttak1{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 10px;
+}
+
+.rotate-90 {
+    /* Rotation à 90 degrés */
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    white-space: nowrap; /* Pour éviter le chevauchement du texte */
+}
+
+#hist{
+    max-height: 550px;
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column-reverse;
+}
+.gameWindow{
+    height: 600px;
+}
+
+
+#opponent{
+    float: right;
+    margin-top: 10%;
+    margin-right: 10%;
+}
+
+#player{
+    float: left;
+    margin-left: 10%;
+}
+
+#spacebetween {
+    border-color: #050801;
+    height: 70%;
+}
+
+#imgProfil{
+    width: 200;
+    height: 100;
+}
+#imgAvatar{
+  width: 100px; /* Remplacez par la largeur souhaitée */
+  height: 100px; /* Remplacez par la hauteur souhaitée */
+  object-fit: contain,cover; /* Optionnel - ajuste la façon dont l'image est ajustée à ses dimensions */
+  margin: 10px;
+};
+
+body{
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.plante{
+    background-color: greenyellow;
+}
+
+.electric{
+    background-color: yellow;
+}
+
+.normal{
+    background-color: grey;
+}
+
+.feu{
+    background-color: orange;
+}
+
+.eau{
+    background-color: lightskyblue;
+}
+
+.terre{
+    background-color: burlywood;
+}
+
+.vol{
+    background-color: silver;
+}
+
+#opponent{
+    display: flex;
+    width: 70%;
+}
+
+#player{
+    display: flex;
+    width: 70%;
+}
+
+#opponentLifeBar {
+    width: 100%;
+    height: 20px;
+    border: 3px solid #000;
+    position: relative;
+    border-radius: 10px;
+}
+
+#playerLifeBar {
+    width: 100%;
+    height: 20px;
+    border: 3px solid #000;
+    position: relative;
+    border-radius: 10px;
+}
+
+#vieRemplieOpponent {
+    height: 100%;
+    background-color: greenyellow;
+    border-radius: 10px;
+}
+
+#vieRempliePlayer {
+    height: 100%;
+    background-color: greenyellow;
+    border-radius: 10px;
+}
+
+#info{
+    border-color: #000;
+    border-radius: 10px;
+    height: auto;
+    padding: 15px;
+    background-color: white;
+    flex: 1;
+    margin: 10px;
+}
+
+.buttons{
+    width: 75%;
+}
+
+#btn-vol{
+    background-color: rgb(202, 200, 200);
+}
+
+#btn-electric{
+    background-color: rgb(248, 248, 180);
+}
+
+#btn-feu{
+    background-color: rgb(255, 215, 142);
+}
+
+#btn-plante{
+    background-color: rgb(229, 255, 191);
+}
+
+#btn-eau{
+    background-color: rgb(182, 225, 253);
+}
+
+#btn-terre{
+    background-color: rgb(197, 180, 157);
+}
+
+.img_player{
+    transform: scaleX(-1);
+}
+
+#hist_title{
+    font-weight: bold;
+    text-decoration: underline;
+}
