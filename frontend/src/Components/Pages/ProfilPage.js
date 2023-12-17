@@ -1,17 +1,19 @@
 import imgAvatar from '../../img/exemple_avatar.png';
 import aaronSprite from '../../img/aaronSprite.png';
 import traineers from '../../img/traineers.png';
-import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
+import { getAuthenticatedUser,  isAuthenticated } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
 
 const main = document.querySelector('main');
 let imgAvatarCurrently = imgAvatar;
-const authenticatedUser = getAuthenticatedUser();
 const leaderboard = await getLeaderboard();
 
-const ProfilPage = () =>{
-    if (isAuthenticated) {
-        renderProfil(); 
+let  userScore;
+const ProfilPage = async () =>{
+    const authUser =  getAuthenticatedUser();
+    if (authUser !== undefined) {
+        userScore =  await getUserScore(authUser);
+        renderProfil(authUser); 
       } else {
         Navigate('/login');
       }
@@ -29,27 +31,26 @@ async function getLeaderboard() {
     throw err;
   }
 }
-let userScore;
 
-if(isAuthenticated){
-    userScore = getUserScore
+async function getUserScore(authUser) {
+    if(isAuthenticated){
+        try {
+            const response = await fetch(
+              `/api/score/getScore?username=${encodeURIComponent(authUser?.username)}`,
+            );
+            if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+        
+            const data = await response.json();
+            return data;
+          } catch (err) {
+            console.error('getLeaderboard::error: ', err);
+            throw err;
+          }
+    }
+    return null;
 }
-async function getUserScore() {
-  try {
-    const response = await fetch(`/api/score/getScore?username=${authenticatedUser?.username}`);
-    console.log(authenticatedUser?.username);
-    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (err) {
-    console.error('getUserScore::error: ', err);
-    throw err;
-  }
-}
-
-function renderProfil() {
+async function renderProfil(authUser) {
   main.innerHTML = `<div id="divPrincipal" class="container mt-5">
                         <div class="card text-center mx-auto" style="width: 18rem;">
                             <img id="imgProfil" class="card-img-top h-200 w-100" src="${imgAvatarCurrently}" alt="Card image cap">
@@ -73,10 +74,10 @@ function renderProfil() {
   const score = main.querySelector('#score');
   const rank = main.querySelector('#rank');
 
-  pseudo.innerText = authenticatedUser?.username;
+  pseudo.innerText = authUser?.username;
   score.innerText = `Score : ${userScore} points`;
   rank.innerText = `Rank : #${leaderboard.findIndex(
-    (user) => user.username === authenticatedUser?.username,
+    (user) => user.username === authUser?.username,
   ) + 1}`;
 }
 

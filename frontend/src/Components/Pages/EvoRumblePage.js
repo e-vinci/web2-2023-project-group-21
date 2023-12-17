@@ -180,7 +180,6 @@ async function getUserScore() {
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.error('getLeaderboard::error: ', err);
@@ -226,7 +225,7 @@ async function endGame() {
     scoreModifier = -1; // Use -1 for the losing case
   }
 
-  if (isAuthenticated) {
+  if (isAuthenticated()) {
     userScore = await getUserScore();
   }
 
