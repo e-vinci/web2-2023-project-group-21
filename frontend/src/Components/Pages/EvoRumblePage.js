@@ -81,7 +81,7 @@ const dicoImg = {
   Ectoraptor: ectoraptor,
   Libeoh: libeoh,
 };
-                                                                                            /* initiation du jeu */
+/* initiation du jeu */
 const gameState = {
   firstPlayerTeam: [],
   opponentTeam: [],
@@ -93,16 +93,17 @@ const gameState = {
   baseLifeTeam1: 0,
   baseLifeTeam2: 0,
 };
+let authenticatedUser;
 const NewPage = () => {
   clearPage();
   creationParties();
+  authenticatedUser = getAuthenticatedUser();
 };
-const authenticatedUser = getAuthenticatedUser();
 const main = document.querySelector('main');
-
 
 // historique des attaques lancées et des monstres morts
 const historique = document.createElement('div');
+historique.id = 'hist';
 let totalHpBotsMonster = 0;
 let totalHpPlayerMonster = 0;
 
@@ -136,18 +137,16 @@ function clearGameState() {
   gameState.opponentActiveMonster = null;
   gameState.attacksAndDamages = [];
   gameState.baseLifeListTeam1 = [];
-  gameState.baseLifeListTeam1 = [];
+  gameState.baseLifeListTeam2 = [];
   gameState.baseLifeTeam1 = 0;
   gameState.baseLifeTeam2 = 0;
 }
 
 function clearHistory() {
-  historique.id = 'hist';
-  historique.innerHTML =
-    '<div class="text-decoration-underline">Historique des attaques éffectuées:</div>';
+  historique.innerHTML=''
 }
 
-                                                                                  /* création des teams */
+/* création des teams */
 function teamCreation(monsterAndAttack) {
   const monstres = monsterAndAttack.allMonsters;
   const nbMonstresParEquipe = 4;
@@ -171,7 +170,7 @@ function teamCreation(monsterAndAttack) {
   gameState.baseLifeTeam2 = gameState.opponentActiveMonster.pointsDeVie;
 }
 
-                                                                              /** endgame et gestion des scores */
+/** endgame et gestion des scores */
 async function getUserScore() {
   try {
     const response = await fetch(
@@ -227,20 +226,27 @@ async function endGame() {
 
   if (isAuthenticated()) {
     userScore = await getUserScore();
+    userScore +=
+      Math.floor(Math.ceil(10 * (totalHpBotsMonster / totalHpPlayerMonster))) * scoreModifier;
+      if(userScore <0){
+        userScore =0;
+      }
+    updateUserScore(authenticatedUser?.username, userScore);
   }
-
-  userScore +=
-    Math.floor(Math.ceil(10 * (totalHpBotsMonster / totalHpPlayerMonster))) * scoreModifier;
-  updateUserScore(authenticatedUser?.username, userScore);
 
   main.innerHTML = gameOutcomeMessage;
   renderGoBackHomeButton();
 }
 
-                                                                                        /* création de la page */
+/* création de la page */
 
 function gameWindow() {
-    const indexMonster = gameState.firstPlayerTeam.findIndex((monstre) => monstre.nom === gameState.activeMonsterPlayer.nom);
+  const indexMonsterPlayer1 = gameState.firstPlayerTeam.findIndex(
+    (monstre) => monstre.nom === gameState.activeMonsterPlayer.nom,
+  );
+  const indexMonsterPlayer2 = gameState.opponentTeam.findIndex(
+    (monstre) => monstre.nom === gameState.opponentActiveMonster.nom,
+  );
   // eslint-disable-next-line no-unused-vars
   const playerMonster = gameState.activeMonsterPlayer;
   // eslint-disable-next-line no-unused-vars
@@ -249,7 +255,7 @@ function gameWindow() {
   console.log(`EQ2: ${opponentMonster.nom}`);
 
   main.innerHTML = `
-    <div class="container bg-white text-center mt-5">
+    <div class="container text-center mt-5">
       <div class="row">
         <div class="col gameWindow m-1 border bg-image" style="background-image: url(${background}); background-size: cover; background-position: center;">
           <div id="opponent">
@@ -257,51 +263,63 @@ function gameWindow() {
               <div id="nameOpponent">
                 ${opponentMonster.nom}
                 (${opponentMonster.type})
-                PV: ${opponentMonster.pointsDeVie}/${gameState.baseLifeListTeam2[0]}
-        </div>
-            <div id="opponentLifeBar">
-              <div id="vieRemplieOpponent"></div>
-            </div>
-          ${getHtmlNbMonster(gameState.opponentTeam.length)}
-         </div>
-        <div id="monstre_oppopnent">
-          <img src="${dicoImg[opponentMonster.nom]}" class="img-fluid float-right">
-        </div>
-      </div>
-      <div id="spacebetween"></div>
-        <div id="player">
-          <div id="monstre_player">
-                <img src="${dicoImg[playerMonster.nom]}" class="img-fluid float-left img_player">
-          </div>
-          <div id="info">
-            <div id="namePlayer">
-              ${playerMonster.nom}
-              (${playerMonster.type})
-              PV: ${playerMonster.pointsDeVie}/${gameState.baseLifeListTeam1[indexMonster]}
-        </div>
-            <div id="playerLifeBar">
-              <div id="vieRempliePlayer"></div>
+                PV: ${opponentMonster.pointsDeVie}/${gameState.baseLifeListTeam2[indexMonsterPlayer2]}
               </div>
-              ${getHtmlNbMonster(gameState.firstPlayerTeam.length)}
+                <div id="opponentLifeBar">
+                  <div id="vieRemplieOpponent">
+                  </div>
+                </div>
+                ${getHtmlNbMonster(gameState.opponentTeam.length)}
+              </div>
+              <div id="monstre_oppopnent">
+                <img src="${dicoImg[opponentMonster.nom]}" class="img-fluid float-right">
+              </div>
+            </div>
+            <div id="spacebetween">
+            </div>
+            <div id="player">
+              <div id="monstre_player">
+                <img src="${dicoImg[playerMonster.nom]}" class="img-fluid float-left img_player">
+              </div>
+              <div id="info">
+                <div id="namePlayer">
+                  ${playerMonster.nom}
+                  (${playerMonster.type})
+                  PV: ${playerMonster.pointsDeVie}/${gameState.baseLifeListTeam1[indexMonsterPlayer1]}
+                </div>
+                <div id="playerLifeBar">
+                  <div id="vieRempliePlayer">
+                  </div>
+                </div>
+                ${getHtmlNbMonster(gameState.firstPlayerTeam.length)}
+              </div>
             </div>
           </div>
+          <div class="col history m-1 border"></div>
+          <div class="w-100 bg-danger"></div>
+          <div class="buttons m-1 border">
+            <div class="atkButtons"></div>
+            <div class="monsterButtons"></div>
+          </div>
+          <div class="col quitButton m-1 border"></div>
         </div>
-        <div class="col  history m-1 border"></div>
-        <div class="w-100"></div>
-        <div class="atkButtons m-1 border"></div>
-        <div class="col quitButton m-1 border"></div>
       </div>
-    </div>`;
+    </div> `;
+    document.querySelector('.atkButtons').innerHTML ='Attaques : <br>';
+    document.querySelector('.monsterButtons').innerHTML ='Monstres : <br>';
+    const historiqueTitle = document.createElement('div');
+    historiqueTitle.innerHTML = 'Historique des attaques éffectuées:';
+    historiqueTitle.id = 'hist_title';
+    document.querySelector('.history').appendChild(historiqueTitle);
 }
 
-
-                                                                                  /* création des divers bouttons */
+/* création des divers bouttons */
 function forfeitButton() {
   const rageQuit = document.createElement('button');
   rageQuit.innerHTML = `Déclarer forfait`;
   rageQuit.className = `bg-danger btn btn-info m-1 mt-5`;
   rageQuit.addEventListener('click', () => {
-    Navigate('/');
+    endGame();
   });
   document.querySelector('.quitButton').appendChild(rageQuit);
 }
@@ -313,22 +331,23 @@ function monsterButtonCreation() {
     if (gameState.firstPlayerTeam[i] !== gameState.activeMonsterPlayer) {
       const monstre = document.createElement('button');
       monstre.className = 'btn btn-info m-1';
+      monstre.id = `btn-${gameState.firstPlayerTeam[i].type}`;
       monstre.innerHTML = `${gameState.firstPlayerTeam[i].nom}  ${gameState.firstPlayerTeam[i].pointsDeVie}PV<br>
                           (${gameState.firstPlayerTeam[i].type})`;
       monstre.addEventListener('click', () => {
         gameState.activeMonsterPlayer = gameState.firstPlayerTeam[i];
         gameState.baseLifeTeam1 = gameState.baseLifeListTeam1[i];
-        historique.innerHTML += `<div class="text-success">EQUIPE 1: Le monstre ${JSON.stringify(
+        historique.insertAdjacentHTML('afterbegin', `<div class="text-success">EQUIPE 1: Le monstre ${JSON.stringify(
           gameState.activeMonsterPlayer.nom,
-        )} est entré</div>`;
-        document.querySelector('#monstre_2').innerHTML = `<img src="${
+        )} est entré</div>`);
+        document.querySelector('#monstre_player').innerHTML = `<img src="${
           dicoImg[gameState.activeMonsterPlayer.nom]
         }" class="img-fluid float-right">`;
         opponentPlay();
-        clearPage();
+        changeMonsterDeath()
         renderGameState();
       });
-      document.querySelector('.atkButtons').appendChild(monstre);
+      document.querySelector('.monsterButtons').appendChild(monstre);
     }
   }
 }
@@ -353,7 +372,7 @@ function renderGoBackHomeButton() {
   main.appendChild(rematch);
 }
 
-                                                                                                /* le jeu */
+/* le jeu */
 
 async function renderGameState() {
   // si l'une des équipes n'a plus de monstres => fin de partie
@@ -408,9 +427,8 @@ async function renderGameState() {
             multiplicateur = 1;
             break;
         }
-
-        historique.innerHTML += `Le joueur 1 a joué ${nom} pour une valeur de ${nbDegats} pv<br>`;
-        gameState.opponentActiveMonster.pointsDeVie -= (nbDegats*multiplicateur);
+        historique.insertAdjacentHTML('afterbegin', `Vous avez joué ${nom} pour une valeur de ${nbDegats*multiplicateur} pv<br>`);
+        gameState.opponentActiveMonster.pointsDeVie -= nbDegats * multiplicateur;
 
         updateLifeBar(
           getPourcentageLifeLeft(
@@ -419,46 +437,7 @@ async function renderGameState() {
           ),
           1,
         );
-
-        if (gameState.opponentActiveMonster.pointsDeVie <= 0) {
-          historique.innerHTML += `<div class="text-danger">EQUIPE 2: Le monstre ${JSON.stringify(
-            gameState.opponentActiveMonster.nom,
-          )} est mort</div>`;
-          const index = gameState.opponentTeam.indexOf(gameState.opponentActiveMonster);
-          gameState.opponentTeam.splice(index, 1);
-          gameState.baseLifeListTeam2.splice(index, 1);
-
-          [gameState.opponentActiveMonster] = gameState.opponentTeam;
-
-          // eslint-disable-next-line prefer-destructuring
-          gameState.baseLifeTeam2 = gameState.baseLifeListTeam2[0];
-
-          // signifie qu'il y a un monstre dans l'équipe
-          if (gameState.opponentActiveMonster !== undefined) {
-            gameState.baseLifeTeam2 = gameState.opponentActiveMonster.pointsDeVie;
-          }
-        } else {
-          opponentPlay();
-
-          updateLifeBar(
-            getPourcentageLifeLeft(
-              gameState.activeMonsterPlayer.pointsDeVie,
-              gameState.baseLifeTeam1,
-            ),
-            2,
-          );
-          if (gameState.activeMonsterPlayer.pointsDeVie <= 0) {
-            historique.innerHTML += `<div class="text-danger">EQUIPE 1: Le monstre ${JSON.stringify(
-              gameState.activeMonsterPlayer.nom,
-            )} est mort</div>`;
-            const index = gameState.firstPlayerTeam.indexOf(gameState.activeMonsterPlayer);
-            gameState.firstPlayerTeam.splice(index, 1);
-            gameState.baseLifeListTeam1.splice(index, 1);
-            [gameState.activeMonsterPlayer] = gameState.firstPlayerTeam;
-            // eslint-disable-next-line prefer-destructuring
-            gameState.baseLifeTeam1 = gameState.baseLifeListTeam1[0];
-          }
-        }
+        changeMonsterDeath()
         clearPage();
         renderGameState();
       });
@@ -478,6 +457,47 @@ function getDamage(attackName) {
     (attackAndDamage) => attackAndDamage.name === attackName,
   );
   return attackDamage;
+}
+
+function changeMonsterDeath(){
+  if (gameState.opponentActiveMonster.pointsDeVie <= 0) {
+    historique.insertAdjacentHTML('afterbegin', `<div class="text-danger">EQUIPE 2: Le monstre ${JSON.stringify(
+      gameState.opponentActiveMonster.nom,
+    )} est mort</div>`);
+    const index = gameState.opponentTeam.indexOf(gameState.opponentActiveMonster);
+    gameState.opponentTeam.splice(index, 1);
+    gameState.baseLifeListTeam2.splice(index, 1);
+
+    [gameState.opponentActiveMonster] = gameState.opponentTeam;
+
+    // eslint-disable-next-line prefer-destructuring
+    gameState.baseLifeTeam2 = gameState.baseLifeListTeam2[0];
+
+    // signifie qu'il y a un monstre dans l'équipe
+    if (gameState.opponentActiveMonster !== undefined) {
+      gameState.baseLifeTeam2 = gameState.opponentActiveMonster.pointsDeVie;
+    }
+  } else {
+    opponentPlay();
+
+    updateLifeBar(
+      getPourcentageLifeLeft(
+        gameState.activeMonsterPlayer.pointsDeVie,
+        gameState.baseLifeTeam1,
+      ),
+      2,
+    );
+    if (gameState.activeMonsterPlayer.pointsDeVie <= 0) {historique.insertAdjacentHTML('afterbegin', `<div class="text-danger">EQUIPE 1: Le monstre ${JSON.stringify(
+        gameState.activeMonsterPlayer.nom,
+      )} est mort</div>`);
+      const index = gameState.firstPlayerTeam.indexOf(gameState.activeMonsterPlayer);
+      gameState.firstPlayerTeam.splice(index, 1);
+      gameState.baseLifeListTeam1.splice(index, 1);
+      [gameState.activeMonsterPlayer] = gameState.firstPlayerTeam;
+      // eslint-disable-next-line prefer-destructuring
+      gameState.baseLifeTeam1 = gameState.baseLifeListTeam1[0];
+    }
+  }
 }
 
 function opponentPlay() {
@@ -500,11 +520,11 @@ function opponentPlay() {
       multiplicateur = 1;
       break;
   }
-
-  historique.innerHTML += `<div>Le joueur 2 a joué ${atkOrdi.name} pour une valeur de ${nbDegatsOrdi*multiplicateur} pv</div><br>`;
-  gameState.activeMonsterPlayer.pointsDeVie -= (nbDegatsOrdi*multiplicateur);
+  historique.insertAdjacentHTML('afterbegin', `<div>Votre adversaire a joué ${
+    atkOrdi.name
+  } pour une valeur de ${nbDegatsOrdi * multiplicateur} pv</div><br>`);
+  gameState.activeMonsterPlayer.pointsDeVie -= nbDegatsOrdi * multiplicateur;
 }
-
 
 function updateLifeBar(pourcentage, numberPlayer) {
   const barreDeVieRemplieOpponent = document.getElementById('vieRemplieOpponent');

@@ -13,7 +13,7 @@ router.get('/getScore', async (req, res) => {
 router.post('/updateScore', async (req, res) => {
   const username = req?.body?.username?.length !== 0 ? req.body.username : undefined;
   const score = req?.body?.score?.length !== 0 ? req.body.score : undefined;
-  if (!username || !score) {
+  if (!username || score === undefined) {
     return res.sendStatus(400);
   }
 

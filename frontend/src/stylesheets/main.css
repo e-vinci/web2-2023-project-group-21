@@ -147,8 +147,8 @@
     white-space: nowrap; /* Pour éviter le chevauchement du texte */
 }
 
-.history{
-    max-height: 600px;
+#hist{
+    max-height: 550px;
     overflow-y: auto; 
     display: flex;
     flex-direction: column-reverse;
@@ -266,7 +266,7 @@ body{
     margin: 10px;
 }
 
-.atkButtons{
+.buttons{
     width: 75%;
 }
 
@@ -301,8 +301,4 @@ body{
 #hist_title{
     font-weight: bold;
     text-decoration: underline;
-}
-
-#hist{
-    vertical-align: top;
 }

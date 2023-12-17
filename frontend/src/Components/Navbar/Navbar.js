@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
 import { isAuthenticated, getAuthenticatedUser} from '../../utils/auths';
-import logo from '../../img/LogoJS.png';
+// import logo from '../../img/LogoJS.png';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -17,16 +17,16 @@ const Navbar = () => {
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid row justify-content-end">
         <div class="row" id="navbarSupportedContent">
-          <div class="nav-item col-4" id="divGauche">
+          <div class="nav-item col-4 d-flex" id="divGauche">
             <div class="nav-item p-2">
               <a class="nav-link" href="#" data-uri="/rule">Game Rule</a>
             </div>
           </div>
-          <div class="nav-item col-4 text-center" id="divCentre">
-            <div class="nav-item p-2">
-              <a class="nav-link" href="#" data-uri="/">
-                <img src="${logo}" alt="Logo EvoRumble">
-              </a>
+          <div class="nav-item col-4 d-flex justify-content-center" id="divCentre">
+            <div id="divLogo" class="nav-item p-2">
+              <a class="nav-link d-flex" href="#" data-uri="/">
+              evorumble logo
+              </a> 
             </div>
           </div>
           <div class="nav-item col-4 d-flex justify-content-end" id="divDroite">
@@ -46,14 +46,16 @@ const Navbar = () => {
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid row justify-content-end">
       <div class="row" id="navbarSupportedContent">
-        <div class="nav-item col-4" id="divGauche">
+        <div class="nav-item col-4 d-flex" id="divGauche">
           <div class="nav-item p-2">
             <a class="nav-link" href="#" data-uri="/rule">Game Rule</a>
           </div>
         </div>
-        <div class="nav-item col-4 text-center" id="divCentre">
-          <div class="nav-item p-2">
-            <a class="nav-link" href="#" data-uri="/">EvoRumbleLOGO</a>
+        <div class="nav-item col-4 d-flex justify-content-center" id="divCentre">
+          <div id="divLogo" class="nav-item p-2">
+            <a class="nav-link" href="#" data-uri="/">
+            evorumble logo
+            </a> 
           </div>
         </div>
         <div class="nav-item col-4 d-flex justify-content-end" id="divDroite">
