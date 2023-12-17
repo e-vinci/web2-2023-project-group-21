@@ -25,7 +25,7 @@ const Navbar = () => {
           <div class="nav-item col-4 d-flex justify-content-center" id="divCentre">
             <div id="divLogo" class="nav-item p-2">
               <a class="nav-link d-flex" href="#" data-uri="/">
-              evorumble logo
+              evoRumblelogo
               </a> 
             </div>
           </div>
@@ -54,7 +54,7 @@ const Navbar = () => {
         <div class="nav-item col-4 d-flex justify-content-center" id="divCentre">
           <div id="divLogo" class="nav-item p-2">
             <a class="nav-link" href="#" data-uri="/">
-            evorumble logo
+            evoRumblelogo
             </a> 
           </div>
         </div>

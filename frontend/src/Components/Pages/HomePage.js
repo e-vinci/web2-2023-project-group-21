@@ -56,7 +56,7 @@ const HomePage = async () => {
   submit.innerHTML = 'JOUER';
   submit.className = 'btn btn-primary btn-lg rounded-pill';
   submit.addEventListener('click', () => {
-    Navigate('/gameMode');
+    Navigate('/evoRumble');
   });
 };
 

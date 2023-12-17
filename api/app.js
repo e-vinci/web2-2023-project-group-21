@@ -7,7 +7,6 @@ const corsOptions = {
   origin: ['http://localhost:8080', 'https://e-baron.github.io'],
 };
 
-const pizzaRouter = require('./routes/pizzas');
 const authsRouter = require('./routes/auths');
 const evoRumbleRouter = require('./routes/evoRumble');
 const scoreRouter = require('./routes/scores');
@@ -21,7 +20,6 @@ app.use(cookieParser());
 
 app.use(cors(corsOptions));
 
-app.use('/pizzas', pizzaRouter);
 app.use('/auths', authsRouter);
 app.use('/evoRumble', cors(corsOptions), evoRumbleRouter);
 app.use('/score', scoreRouter);
